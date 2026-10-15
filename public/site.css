@@ -1,3 +1,8 @@
+/* Iosevka, SIL Open Font License 1.1, see /fonts/OFL.md. Subset to Latin and common punctuation. */
+@font-face { font-family: 'Iosevka'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/iosevka-400.woff2') format('woff2'); }
+@font-face { font-family: 'Iosevka'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/iosevka-500.woff2') format('woff2'); }
+@font-face { font-family: 'Iosevka'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/iosevka-700.woff2') format('woff2'); }
+@font-face { font-family: 'Iosevka'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/iosevka-800.woff2') format('woff2'); }
 
   :root {
     --bg: #101720;
@@ -13,9 +18,9 @@
     --green: #17bf63;
     --amber: #ffad1f;
     --rose: #e1547a;
-    --display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
-    --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    --display: 'Iosevka', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    --sans: 'Iosevka', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    --mono: 'Iosevka', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
     --pad: 24px;
   }
   @media (min-width: 760px) { :root { --pad: 40px; } }
