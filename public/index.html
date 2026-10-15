@@ -30,6 +30,7 @@
   .btn-primary { box-shadow: 0 10px 34px rgba(255,154,98,.30); }
   .brand-word { font-weight: 800; font-size: 30px; letter-spacing: -.04em; color: #fff; line-height: 1; }
   .brand-word span { color: var(--accent); }
+  @media (min-width: 900px) { .stats-3 { grid-template-columns: repeat(3, minmax(0,1fr)); } }
   .hero-shot { border-radius: 14px; display: block; width: 100%; height: auto; }
   .steps { counter-reset: s; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
   .steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; font-size: 15px; line-height: 1.6; color: var(--muted); }
@@ -162,7 +163,7 @@
         <h2>How it feels<br>on a real library.</h2>
       </div>
       <div class="glass" style="padding:clamp(28px,3vw,40px) clamp(24px,3vw,44px);display:flex;flex-direction:column;gap:28px">
-        <div class="stats">
+        <div class="stats stats-3">
           <div style="display:flex;flex-direction:column;gap:7px">
             <div class="stat-n">0.53<span>s</span></div>
             <div class="stat-l">Library on screen</div>
@@ -178,14 +179,9 @@
             <div class="stat-l">Search results</div>
             <div class="stat-d">From typing a word until results show with posters</div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:7px">
-            <div class="stat-n">115<span>MB</span></div>
-            <div class="stat-l">Kept on disk</div>
-            <div class="stat-d">Everything rex stores for the whole library</div>
-          </div>
         </div>
         <hr class="rule">
-        <p class="note">Measured on 2026-10-15 on a rented server with four dedicated cores. The library was 930 movies and 44 shows on a Real-Debrid account fed by zurg. Each figure is the middle of seven runs of the official web app in Chrome on the same machine with a fresh browser every run. Your own times depend on your machine and your connection. rex used 269 MB of memory during the run.</p>
+        <p class="note">Measured on a rented server with four dedicated cores. The library was 930 movies and 44 shows on a Real-Debrid account fed by zurg. Each figure is the middle of seven runs of the official web app in Chrome on the same machine with a fresh browser every run. Your own times depend on your machine and your connection. rex used 269 MB of memory during the run.</p>
       </div>
     </div>
   </section>
@@ -217,10 +213,6 @@
         <div class="card rec">
           <div class="rec-h"><h3>Outside your home needs your own address.</h3></div>
           <p>The web app only connects over HTTPS and rex has no relay. Give it a certificate for a hostname you own. Keep a Cloudflare tunnel out of the way because it makes every play start read the whole file.</p>
-        </div>
-        <div class="card rec" style="border-color:rgba(225,84,122,.28);background:linear-gradient(rgba(225,84,122,.06),rgba(225,84,122,.06)),rgba(26,31,46,.55)">
-          <div class="rec-h"><h3 style="color:#fff">Adding it to your account is at your own risk.</h3></div>
-          <p>rex is not made by Plex. Plex could act against an account that registers it. Skip that step and rex only answers on your own network.</p>
         </div>
       </div>
     </div>
