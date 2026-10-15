@@ -161,7 +161,32 @@
         <p class="sec-label">03 / Speed</p>
         <h2>How it feels<br>on a real library.</h2>
       </div>
-      <!-- BENCH -->
+      <div class="glass" style="padding:clamp(28px,3vw,40px) clamp(24px,3vw,44px);display:flex;flex-direction:column;gap:28px">
+        <div class="stats">
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div class="stat-n">0.53<span>s</span></div>
+            <div class="stat-l">Library on screen</div>
+            <div class="stat-d">From a click on Library until the posters are drawn</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div class="stat-n">0.32<span>s</span></div>
+            <div class="stat-l">To open a title</div>
+            <div class="stat-d">A movie page or a show page with its seasons</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div class="stat-n">0.38<span>s</span></div>
+            <div class="stat-l">Search results</div>
+            <div class="stat-d">From typing a word until results show with posters</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div class="stat-n">115<span>MB</span></div>
+            <div class="stat-l">Kept on disk</div>
+            <div class="stat-d">Everything rex stores for the whole library</div>
+          </div>
+        </div>
+        <hr class="rule">
+        <p class="note">Measured on 2026-10-15 on a rented server with four dedicated cores. The library was 930 movies and 44 shows on a Real-Debrid account fed by zurg. Each figure is the middle of seven runs of the official web app in Chrome on the same machine with a fresh browser every run. Your own times depend on your machine and your connection. rex used 269 MB of memory during the run.</p>
+      </div>
     </div>
   </section>
 
