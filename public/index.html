@@ -42,6 +42,7 @@
   .launch { display: block; text-align: center; padding: 5px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.5; letter-spacing: .04em; color: #1a0d05; background: var(--brand); text-decoration: none; }
   @media (max-width: 400px) { .launch { font-size: 11px; padding: 5px 8px; letter-spacing: 0; } }
   .launch:hover { background: #ffad80; color: #1a0d05; }
+  .steps a { text-decoration: underline; text-underline-offset: .22em; }
   .steps li::before { content: counter(s); font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(255,154,98,.4); border-radius: 999px; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
 </style>
 </head>
@@ -267,7 +268,7 @@
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
           <li><span>Download the build for your machine and unpack it. Linux needs Ubuntu 22.04 or newer.</span></li>
-          <li><span>Start rex with a free TMDB key and your Plex token. The first start makes an empty Movies and TV library.</span></li>
+          <li><span>Start rex with a free <a href="https://developer.themoviedb.org/docs/getting-started">TMDB API key</a> and your <a href="https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/">Plex token</a>. The first start makes an empty Movies and TV library.</span></li>
           <li><span>Add rex's address to zurg and restart zurg. zurg tells rex where its files are and sends its whole library and then every change.</span></li>
           <li><span>Keep rex's port off the open internet. Anyone who can reach it can change its library.</span></li>
           <li><span>Add it to your Plex account if you want it in the apps outside your home. This step is optional and at your own risk.</span></li>
