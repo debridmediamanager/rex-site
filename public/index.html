@@ -6,35 +6,42 @@
 <title>rex. A media server that owns no files.</title>
 <meta name="description" content="rex is a Plex compatible media server for your debrid library. Your files stay where they are and the official apps see a normal server with posters and seasons and watch history. A closed beta for sponsors is on the way.">
 <meta name="color-scheme" content="dark">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
 <meta property="og:title" content="rex. A media server that owns no files.">
 <meta property="og:description" content="A Plex compatible media server for your debrid library. Nothing to download and nothing to scan.">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://rex.debridmediamanager.com/">
 <meta property="og:url" content="https://rex.debridmediamanager.com/">
 <meta property="og:site_name" content="rex">
-<meta property="og:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261015">
+<meta property="og:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261015b">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="rex. A media server that owns no files.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="rex. A media server that owns no files.">
 <meta name="twitter:description" content="A Plex compatible media server for your debrid library. Nothing to download and nothing to scan.">
-<meta name="twitter:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261015">
+<meta name="twitter:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261015b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="/site.css?v=20261015">
+<link rel="stylesheet" href="/site.css?v=20261015b">
 <style>
-  :root { --accent: #ff9a62; }
-  .btn-primary { box-shadow: 0 10px 34px rgba(255,154,98,.30); }
+  :root { --accent: #8b85f0; --brand: #4f46e5; }
+  .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 10px 34px rgba(79,70,229,.38); }
+  .btn-primary:hover { background: #5b53f0; color: #fff; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; }
+  .brand img { width: 30px; height: 30px; display: block; image-rendering: pixelated; }
   .brand-word { font-weight: 800; font-size: 30px; letter-spacing: -.04em; color: #fff; line-height: 1; }
   .brand-word span { color: var(--accent); }
   @media (min-width: 900px) { .stats-3 { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .hu { border-color: rgba(139,133,240,.30); background: linear-gradient(rgba(79,70,229,.10),rgba(79,70,229,.10)),rgba(26,31,46,.55); }
+  .hu-k, .hu-link { color: var(--accent); }
+  .hu-link:hover { color: #b3aef8; }
   .hero-shot { border-radius: 14px; display: block; width: 100%; height: auto; }
   .steps { counter-reset: s; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
   .steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; font-size: 15px; line-height: 1.6; color: var(--muted); }
-  .steps li::before { content: counter(s); font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(255,154,98,.4); border-radius: 999px; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
+  .steps li::before { content: counter(s); font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(139,133,240,.45); border-radius: 999px; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
 </style>
 </head>
 <body>
@@ -48,14 +55,12 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="/" aria-label="rex home" aria-current="page"><span class="brand-word">rex<span>.</span></span></a>
+    <a class="brand" href="/" aria-label="rex home" aria-current="page"><img src="/logo.svg" alt="" width="30" height="30"><span class="brand-word">rex</span></a>
     <nav class="nav-links" aria-label="Main navigation">
       <a href="#screens">Screens</a>
       <a href="#speed">Speed</a>
-      <a href="#limits">Limits</a>
       <a href="#access">Access</a>
       <a href="#setup">Setup</a>
-      <a href="https://zurg.debridmediamanager.com/">zurg</a>
     </nav>
     <a class="btn btn-primary btn-sm cta" href="https://gatekeeper.debridmediamanager.com/">Sponsor</a>
   </div>
@@ -100,7 +105,7 @@
       </div>
       <div class="g3">
         <div class="card feat">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8b85f0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
           <h3>It looks like any other server.</h3>
           <p>Once you add it to your account it shows up in the apps next to your other servers. Movies and shows get posters and summaries and cast and seasons. Watched state and Continue Watching and playlists and collections all work and survive a restart.</p>
           <p class="note" style="margin-top:auto;padding-top:6px">Apps on your home network find it on their own when it runs on port 32400.</p>
@@ -227,7 +232,7 @@
         <p class="lede">rex opens as a closed beta for sponsors. Every build they get reaches the public release 30 days after.</p>
       </div>
       <div class="access">
-        <div class="glass plan" style="border-color:rgba(255,154,98,.40);box-shadow:0 24px 70px rgba(255,154,98,.14)">
+        <div class="glass plan" style="border-color:rgba(79,70,229,.55);box-shadow:0 24px 70px rgba(79,70,229,.20)">
           <div class="plan-h"><span class="t">Closed beta</span><span class="badge badge-on">Sponsors &middot; soon</span></div>
           <div class="flist">
             <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">Every build the day it is made</span></div>
@@ -287,7 +292,7 @@
 <footer>
   <div class="wrap foot">
     <div class="foot-brand">
-      <p class="brand-word" style="margin-bottom:16px">rex<span>.</span></p>
+      <p class="brand" style="margin-bottom:16px"><img src="/logo.svg" alt="" width="30" height="30"><span class="brand-word">rex</span></p>
       <p class="note">rex and <a href="https://zurg.debridmediamanager.com/">zurg</a> and <a href="https://debridmediamanager.com/">Debrid Media Manager</a> are built by <a href="https://github.com/yowmamasita/">yowmamasita</a>. rex is an independent project and is not affiliated with or endorsed by Plex.</p>
     </div>
   </div>
