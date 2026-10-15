@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rex. A media server that owns no files.</title>
+<meta name="description" content="rex is a Plex compatible media server for your debrid library. Your files stay where they are and the official apps see a normal server with posters and seasons and watch history. A closed beta for sponsors is on the way.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:title" content="rex. A media server that owns no files.">
+<meta property="og:description" content="A Plex compatible media server for your debrid library. Nothing to download and nothing to scan.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://rex.debridmediamanager.com/">
+<meta property="og:url" content="https://rex.debridmediamanager.com/">
+<meta property="og:site_name" content="rex">
+<meta property="og:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261015">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="rex. A media server that owns no files.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="rex. A media server that owns no files.">
+<meta name="twitter:description" content="A Plex compatible media server for your debrid library. Nothing to download and nothing to scan.">
+<meta name="twitter:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261015">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/site.css?v=20261015">
+<style>
+  :root { --accent: #ff9a62; }
+  .btn-primary { box-shadow: 0 10px 34px rgba(255,154,98,.30); }
+  .brand-word { font-weight: 800; font-size: 30px; letter-spacing: -.04em; color: #fff; line-height: 1; }
+  .brand-word span { color: var(--accent); }
+  .hero-shot { border-radius: 14px; display: block; width: 100%; height: auto; }
+  .steps { counter-reset: s; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
+  .steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; font-size: 15px; line-height: 1.6; color: var(--muted); }
+  .steps li::before { content: counter(s); font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(255,154,98,.4); border-radius: 999px; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<div class="atmos" aria-hidden="true">
+  <div class="mesh"></div>
+  <div class="grid-o"></div>
+  <div class="vig"></div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="rex home" aria-current="page"><span class="brand-word">rex<span>.</span></span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#screens">Screens</a>
+      <a href="#speed">Speed</a>
+      <a href="#limits">Limits</a>
+      <a href="#access">Access</a>
+      <a href="#setup">Setup</a>
+      <a href="https://zurg.debridmediamanager.com/">zurg</a>
+    </nav>
+    <a class="btn btn-primary btn-sm cta" href="https://gatekeeper.debridmediamanager.com/">Sponsor</a>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Plex compatible &middot; Owns no files &middot; Sponsor beta soon</p>
+      <h1>Your debrid<br>library.<br><span style="color:var(--accent)">A real server.</span></h1>
+      <p class="lede">rex is a media server that keeps nothing on disk. Your movies and shows stay on your debrid service and the official apps see a normal server with posters and seasons and your watch history.</p>
+
+      <div class="hu">
+        <p><span class="hu-k">No scanning</span> A new release shows up in your library the moment its source tells rex about it. rex never reads a file to find out what it is.</p>
+        <a class="hu-link" href="#speed">How fast it feels on a real library &rarr;</a>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://gatekeeper.debridmediamanager.com/">
+          Become a sponsor
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#setup">How it is set up</a>
+      </div>
+
+      <p class="note" style="max-width:470px">A closed beta for sponsors is on the way. Each build will reach everyone else 30 days after sponsors get it.</p>
+    </div>
+
+    <div class="glass" style="overflow:hidden;align-self:start;padding:10px">
+      <img class="hero-shot" src="shot-library.webp" width="2400" height="1500" alt="A movie library of public domain films with posters, shown by rex in the official web app">
+    </div>
+  </div>
+
+  <!-- WHAT IT DOES -->
+  <section>
+    <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
+      <div class="sec-head">
+        <p class="sec-label">01 / What it does</p>
+        <h2>The apps you know.<br>Nothing on your disk.</h2>
+      </div>
+      <div class="g3">
+        <div class="card feat">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+          <h3>It looks like any other server.</h3>
+          <p>Once you add it to your account it shows up in the apps next to your other servers. Movies and shows get posters and summaries and cast and seasons. Watched state and Continue Watching and playlists and collections all work and survive a restart.</p>
+          <p class="note" style="margin-top:auto;padding-top:6px">Apps on your home network find it on their own when it runs on port 32400.</p>
+        </div>
+        <div class="card feat">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b69ae8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5"/></svg>
+          <h3>Many sources. One library.</h3>
+          <p>Each source sends rex the files it has and keeps it up to date. zurg does this for you today and anything that can run ffprobe can do it too. Two zurgs on two debrid accounts end up in one Movies and one TV library.</p>
+          <p class="note" style="margin-top:auto;padding-top:6px">The same film from two sources becomes one title with two versions.</p>
+        </div>
+        <div class="card feat">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l15-9L5 3Z"/></svg>
+          <h3>It streams straight from the source.</h3>
+          <p>When you press play rex reads the file from where it lives and hands it on. Nothing is downloaded first. Files play in their original quality.</p>
+          <p class="note" style="margin-top:auto;padding-top:6px">Give it FFmpeg and it also converts what a device cannot play. A graphics chip makes that fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENS -->
+  <section id="screens">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
+      <div class="sec-head-split">
+        <div class="sec-head">
+          <p class="sec-label">02 / Screens</p>
+          <h2>What you see<br>in the apps.</h2>
+        </div>
+        <p class="note">Real screenshots of rex in the official web app. The library is public domain films and open movies streamed from a plain web server. Nothing is touched up.</p>
+      </div>
+
+      <figure class="shot-fig">
+        <img class="shot" src="shot-home.webp" width="2400" height="1500" loading="lazy" alt="Recommended view of the Movies library with Recently Added and Top Movies in Comedy rows">
+        <figcaption class="shot-cap"><b>Recommended rows like any server.</b> Recently Added and genre rows fill in by themselves as titles arrive.</figcaption>
+      </figure>
+
+      <div class="g2">
+        <figure class="shot-fig">
+          <img class="shot" src="shot-movie.webp" width="2400" height="1500" loading="lazy" alt="Movie page for Sintel with poster and summary and cast and the file details">
+          <figcaption class="shot-cap"><b>Every title gets its page.</b> Poster and summary and cast and the file it plays.</figcaption>
+        </figure>
+        <figure class="shot-fig">
+          <img class="shot" src="shot-season.webp" width="2400" height="1500" loading="lazy" alt="Season page for The Beverly Hillbillies season 1 with cast">
+          <figcaption class="shot-cap"><b>Shows come in seasons.</b> Episodes are numbered from the file names and On Deck knows where you stopped.</figcaption>
+        </figure>
+      </div>
+
+      <figure class="shot-fig">
+        <img class="shot" src="shot-player.webp" width="2400" height="1500" loading="lazy" alt="Night of the Living Dead playing in the web app player">
+        <figcaption class="shot-cap"><b>Press play.</b> The file streams straight from its source in its original quality.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- SPEED -->
+  <section id="speed">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
+      <div class="sec-head">
+        <p class="sec-label">03 / Speed</p>
+        <h2>How it feels<br>on a real library.</h2>
+      </div>
+      <!-- BENCH -->
+    </div>
+  </section>
+
+  <!-- LIMITS -->
+  <section id="limits">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
+      <div class="sec-head">
+        <p class="sec-label">04 / Limits</p>
+        <h2>The things it will not do.</h2>
+      </div>
+      <div class="g3">
+        <div class="card rec">
+          <div class="rec-h"><h3>Movies and TV only.</h3></div>
+          <p>Music and photo libraries stay empty. There is no Live TV and no DVR.</p>
+        </div>
+        <div class="card rec">
+          <div class="rec-h"><h3>One person's view.</h3></div>
+          <p>People you share it with see it the way the owner does and with the owner's watch history.</p>
+        </div>
+        <div class="card rec">
+          <div class="rec-h"><h3>Converted video has no subtitles yet.</h3></div>
+          <p>A file that plays as it is keeps its subtitles. One that rex converts for a device plays without them for now.</p>
+        </div>
+        <div class="card rec">
+          <div class="rec-h"><h3>It needs a source that probes.</h3></div>
+          <p>rex never opens a file to learn what is inside. A title appears once its source has sent those details. zurg does this and a big library takes a few hours the first time.</p>
+        </div>
+        <div class="card rec">
+          <div class="rec-h"><h3>Outside your home needs your own address.</h3></div>
+          <p>The web app only connects over HTTPS and rex has no relay. Give it a certificate for a hostname you own. Keep a Cloudflare tunnel out of the way because it makes every play start read the whole file.</p>
+        </div>
+        <div class="card rec" style="border-color:rgba(225,84,122,.28);background:linear-gradient(rgba(225,84,122,.06),rgba(225,84,122,.06)),rgba(26,31,46,.55)">
+          <div class="rec-h"><h3 style="color:#fff">Adding it to your account is at your own risk.</h3></div>
+          <p>rex is not made by Plex. Plex could act against an account that registers it. Skip that step and rex only answers on your own network.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESS -->
+  <section id="access">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,44px)">
+      <div class="sec-head" style="max-width:760px">
+        <p class="sec-label">05 / Access</p>
+        <h2>Sponsors first.<br>Everyone 30 days later.</h2>
+        <p class="lede">rex opens as a closed beta for sponsors. Every build they get reaches the public release 30 days after.</p>
+      </div>
+      <div class="access">
+        <div class="glass plan" style="border-color:rgba(255,154,98,.40);box-shadow:0 24px 70px rgba(255,154,98,.14)">
+          <div class="plan-h"><span class="t">Closed beta</span><span class="badge badge-on">Sponsors &middot; soon</span></div>
+          <div class="flist">
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">Every build the day it is made</span></div>
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">Linux and macOS and Windows</span></div>
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">The zurg nightly that feeds it</span></div>
+          </div>
+          <div class="plan-cta">
+            <a class="btn btn-primary" href="https://gatekeeper.debridmediamanager.com/">Get access</a>
+          </div>
+          <p class="note">Sponsoring happens at <a href="https://gatekeeper.debridmediamanager.com/">gatekeeper</a>. It covers the <a href="https://zurg.debridmediamanager.com/">zurg</a> nightly today. rex access is not switched on there yet.</p>
+        </div>
+        <div class="card plan">
+          <div class="plan-h"><span class="t" style="color:var(--muted)">Public</span><span class="badge badge-off">Free</span></div>
+          <div class="flist">
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">The same builds 30 days later</span></div>
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">Free</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="setup">
+    <div class="wrap qs">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <p class="sec-label">06 / Setup</p>
+        <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
+        <ol class="steps">
+          <li><span>Download the build for your machine and unpack it. Linux needs Ubuntu 22.04 or newer.</span></li>
+          <li><span>Tell rex where your files are and give each source a token to send with.</span></li>
+          <li><span>Make an empty library and start rex with a free TMDB key.</span></li>
+          <li><span>Point zurg at rex. It sends its whole library and then every change.</span></li>
+          <li><span>Add it to your account if you want the apps outside your home to see it.</span></li>
+        </ol>
+      </div>
+      <div class="glass" style="overflow:hidden">
+        <div class="panel-bar">
+          <span class="mono" style="font-size:11.5px;color:var(--faint);letter-spacing:.1em">SETUP</span>
+          <span class="mono" style="font-size:11.5px;color:var(--faint);margin-left:auto">Linux · macOS · Windows</span>
+        </div>
+<pre tabindex="0" aria-label="Setup commands"><span class="c5"># make an empty Movies and TV library</span>
+<span class="c1">rex</span> catalog --seed --name myrex --out rex.db
+
+<span class="c5"># start it</span>
+<span class="c1">rex</span> --catalog rex.db --sources sources.json
+
+<span class="c5"># zurg config.yml</span>
+<span class="c2">rex_url</span>: http://&lt;rex host&gt;:32400
+<span class="c2">rex_feed_token</span>: &lt;the token from sources.json&gt;</pre>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="foot-brand">
+      <p class="brand-word" style="margin-bottom:16px">rex<span>.</span></p>
+      <p class="note">rex and <a href="https://zurg.debridmediamanager.com/">zurg</a> and <a href="https://debridmediamanager.com/">Debrid Media Manager</a> are built by <a href="https://github.com/yowmamasita/">yowmamasita</a>. rex is an independent project and is not affiliated with or endorsed by Plex.</p>
+    </div>
+  </div>
+  <nav class="wrap footer-nav" aria-label="Footer navigation">
+    <a href="/">rex</a><a href="https://zurg.debridmediamanager.com/">zurg</a>
+    <a href="https://debridmediamanager.com/">Debrid Media Manager</a>
+    <a href="https://gatekeeper.debridmediamanager.com/">Sponsor access</a>
+  </nav>
+</footer>
+
+</body>
+</html>

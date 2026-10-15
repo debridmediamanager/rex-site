@@ -1,0 +1,19 @@
+# rex-site
+
+Source for **[rex.debridmediamanager.com](https://rex.debridmediamanager.com/)**, the
+landing page for rex.
+
+One hand-written `public/index.html` on the shared `site.css` from
+[zurg-site](https://github.com/debridmediamanager/zurg-site). No framework and no build
+step. `public/` holds exactly what ships.
+
+- Copy uses no commas, colons or em dashes, names no competitors and keeps Plex mentions
+  to what describes compatibility.
+- Screenshots come from a demo rex holding only public-domain films and Blender open
+  movies, through the official web app at 2x. Keep account names, tokens and private
+  libraries out of images.
+- Benchmark figures come from a recorded run on a dedicated box; keep the date and the
+  library size beside them.
+
+`./deploy.sh` publishes Cloudflare Pages project `rex`. Verify with a cache-busted URL
+(`?cb=1`); the zone cache can keep the bare URL stale after a deploy.
