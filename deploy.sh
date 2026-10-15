@@ -6,5 +6,6 @@
 # cache-busted fetch (curl 'https://rex.debridmediamanager.com/?cb=1').
 set -euo pipefail
 cd "$(dirname "$0")"
-npx --yes wrangler@latest pages deploy "$PWD/public" \
+# wrangler 4.151 turns `pages` commands into a Workers deploy; 4.40.0 still deploys Pages.
+npx --yes wrangler@4.40.0 pages deploy "$PWD/public" \
   --project-name="${CF_PAGES_PROJECT:-rex}" --branch=main --commit-dirty=true

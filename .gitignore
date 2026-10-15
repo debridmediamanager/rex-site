@@ -1,2 +1,3 @@
 deploy.env
 .DS_Store
+.wrangler/
