@@ -39,6 +39,8 @@
   .hero-shot { border-radius: 14px; display: block; width: 100%; height: auto; }
   .steps { counter-reset: s; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
   .steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; font-size: 15px; line-height: 1.6; color: var(--muted); }
+  .launch { display: block; text-align: center; padding: 10px 16px; font-family: var(--mono); font-size: 13px; letter-spacing: .04em; color: #1a0d05; background: var(--brand); text-decoration: none; }
+  .launch:hover { background: #ffad80; color: #1a0d05; }
   .steps li::before { content: counter(s); font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(255,154,98,.4); border-radius: 999px; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
 </style>
 </head>
@@ -50,6 +52,8 @@
   <div class="grid-o"></div>
   <div class="vig"></div>
 </div>
+
+<a class="launch" href="#access">rex launches this Halloween &middot; October 31</a>
 
 <header>
   <div class="wrap nav">
@@ -86,7 +90,7 @@
         <a class="btn btn-ghost" href="#setup">How it is set up</a>
       </div>
 
-      <p class="note" style="max-width:470px">A closed beta for sponsors is on the way. Each build will reach everyone else 30 days after sponsors get it.</p>
+      <p class="note" style="max-width:470px">A closed beta for sponsors is on the way. The public release ships every 30 days on the last day of the month and runs 30 days behind the sponsor builds.</p>
     </div>
 
     <div class="glass" style="overflow:hidden;align-self:start;padding:10px">
@@ -227,7 +231,7 @@
       <div class="sec-head" style="max-width:760px">
         <p class="sec-label">05 / Access</p>
         <h2>Sponsors first.<br>Everyone 30 days later.</h2>
-        <p class="lede">rex opens as a closed beta for sponsors. Every build they get reaches the public release 30 days after.</p>
+        <p class="lede">rex opens as a closed beta for sponsors. The public release ships once every 30 days on the last day of the month. It carries the sponsor builds from 30 days before.</p>
       </div>
       <div class="access">
         <div class="glass plan" style="border-color:rgba(255,154,98,.40);box-shadow:0 24px 70px rgba(255,154,98,.14)">
@@ -245,7 +249,8 @@
         <div class="card plan">
           <div class="plan-h"><span class="t" style="color:var(--muted)">Public</span><span class="badge badge-off">Free</span></div>
           <div class="flist">
-            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">The same builds 30 days later</span></div>
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">A new release on the last day of each month</span></div>
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">Builds 30 days behind sponsors</span></div>
             <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">Free</span></div>
           </div>
         </div>
