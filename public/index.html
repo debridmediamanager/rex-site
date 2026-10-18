@@ -208,8 +208,8 @@
           <p>Music and photo libraries stay empty. There is no Live TV and no DVR.</p>
         </div>
         <div class="card rec">
-          <div class="rec-h"><h3>One person's view.</h3></div>
-          <p>People you share it with see it the way the owner does and with the owner's watch history.</p>
+          <div class="rec-h"><h3>Away from home needs a Plex Pass.</h3></div>
+          <p>As with any Plex server the account you watch with needs Plex Pass or a Remote Watch Pass to play outside your home. Converting video needs no pass.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Converted video has no subtitles yet.</h3></div>
@@ -221,7 +221,7 @@
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Outside your home needs your own address.</h3></div>
-          <p>The web app only connects over HTTPS and rex has no relay. Give it a certificate for a hostname you own. Keep a Cloudflare tunnel out of the way because it makes every play start read the whole file.</p>
+          <p>The web app only connects over HTTPS and rex has no relay. Sponsors get rex-direct with one port forward. Or give it a certificate for a hostname you own. Keep a Cloudflare tunnel out of the way because it makes every play start read the whole file.</p>
         </div>
       </div>
     </div>
@@ -268,11 +268,11 @@
         <p class="sec-label">06 / Setup</p>
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
-          <li><span>Download the build for your machine and unpack it. Linux needs Ubuntu 22.04 or newer.</span></li>
-          <li><span>Start rex with a free <a href="https://developer.themoviedb.org/docs/getting-started">TMDB API key</a>. The first start makes an empty Movies and TV library.</span></li>
-          <li><span>Add rex's address to zurg and restart zurg. zurg tells rex where its files are and sends its whole library and then every change.</span></li>
-          <li><span>Keep rex's port off the open internet. Anyone who can reach it can change its library.</span></li>
-          <li><span>Add it to your Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> if you want it in the apps outside your home. rex never needs your Plex token. This step is optional and at your own risk.</span></li>
+          <li><span>Download the build for your machine and unpack it. There are builds for Linux and macOS and Windows. Linux needs Ubuntu 22.04 or newer.</span></li>
+          <li><span>Start rex. The first start makes an empty Debrid Movies and Debrid TV library and names the server after the machine. rex never needs your Plex token or a TMDB key.</span></li>
+          <li><span>Add it to a fresh Plex account made just for rex with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. Do it before zurg sends anything so titles arrive with their posters. This step is optional and at your own risk.</span></li>
+          <li><span>Add rex's address and your DMM API key to zurg and restart zurg. It needs a zurg nightly from October 17 or later. zurg asks DMM what each file is and sends rex its whole library and then every change. Only this machine and your home network and Tailscale can push to it.</span></li>
+          <li><span>Outside your home the apps want an HTTPS address. Sponsors get one from rex-direct with a single port forward. Or give rex a certificate for a hostname you own.</span></li>
         </ol>
       </div>
       <div class="glass" style="overflow:hidden">
@@ -281,15 +281,20 @@
           <span class="mono" style="font-size:11.5px;color:var(--faint);margin-left:auto">Linux · macOS · Windows</span>
         </div>
 <pre tabindex="0" aria-label="Setup commands"><span class="c5"># start it (the first start makes the library)</span>
-export TMDB_KEY=...
-<span class="c1">rex</span> --catalog rex.db --friendly-name myrex \
-  --owner-username &lt;plex username&gt; --owner-email &lt;plex email&gt;
+<span class="c1">rex</span> --catalog rex.db
+
+<span class="c5"># claim it on a fresh Plex account with a code from plex.tv/claim</span>
+curl -X POST "http://127.0.0.1:32400/myplex/claim?token=claim-xxxx"
+
+<span class="c5"># then tell Plex where it lives at home</span>
+<span class="c1">rex</span> --catalog rex.db --announce-url http://&lt;LAN IP&gt;:32400
 
 <span class="c5"># zurg config.yml</span>
 <span class="c2">rex_url</span>: http://&lt;rex host&gt;:32400
+<span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;
 
-<span class="c5"># optional: code from plex.tv/claim</span>
-curl -X POST "http://127.0.0.1:32400/myplex/claim?token=claim-xxxx"</pre>
+<span class="c5"># rex-direct in rex.env and forward port 32400</span>
+DMM_API_KEY=&lt;your DMM API key&gt;</pre>
       </div>
     </div>
   </section>
