@@ -269,10 +269,10 @@
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
           <li><span>Download the build for your machine and unpack it. There are builds for Linux and macOS and Windows. Linux needs Ubuntu 22.04 or newer.</span></li>
-          <li><span>Start rex. The first start makes an empty Debrid Movies and Debrid TV library and names the server after the machine. rex never needs your Plex token or a TMDB key.</span></li>
-          <li><span>Add it to a fresh Plex account made just for rex with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. Do it before zurg sends anything so titles arrive with their posters. This step is optional and at your own risk.</span></li>
+          <li><span>Start rex once with its LAN address and with your DMM API key if you sponsor. Nothing after this restarts it. The first start makes an empty Debrid Movies and Debrid TV library and names the server after the machine. rex never needs your Plex token or a TMDB key.</span></li>
+          <li><span>Add it to a fresh Plex account made just for rex with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. rex tells Plex its address the moment it is claimed. Do it before zurg sends anything so titles arrive with their posters. This step is optional and at your own risk.</span></li>
           <li><span>Add rex's address and your DMM API key to zurg and restart zurg. It needs a zurg nightly from October 17 or later. zurg asks DMM what each file is and sends rex its whole library and then every change. Only this machine and your home network and Tailscale can push to it.</span></li>
-          <li><span>Outside your home the apps want an HTTPS address. Sponsors get one from rex-direct with a single port forward. Or give rex a certificate for a hostname you own.</span></li>
+          <li><span>Outside your home the apps want an HTTPS address. With the DMM key from step 2 rex-direct already has one and needs a single port forward. Or start rex with a certificate for a hostname you own.</span></li>
         </ol>
       </div>
       <div class="glass" style="overflow:hidden">
@@ -280,21 +280,18 @@
           <span class="mono" style="font-size:11.5px;color:var(--faint);letter-spacing:.1em">SETUP</span>
           <span class="mono" style="font-size:11.5px;color:var(--faint);margin-left:auto">Linux · macOS · Windows</span>
         </div>
-<pre tabindex="0" aria-label="Setup commands"><span class="c5"># start it (the first start makes the library)</span>
-<span class="c1">rex</span> --catalog rex.db
+<pre tabindex="0" aria-label="Setup commands"><span class="c5"># start it once (the DMM key is for sponsors and turns on rex-direct)</span>
+DMM_API_KEY=&lt;your DMM API key&gt; \
+<span class="c1">rex</span> --catalog rex.db --announce-url http://&lt;LAN IP&gt;:32400
 
 <span class="c5"># claim it on a fresh Plex account with a code from plex.tv/claim</span>
 curl -X POST "http://127.0.0.1:32400/myplex/claim?token=claim-xxxx"
-
-<span class="c5"># then tell Plex where it lives at home</span>
-<span class="c1">rex</span> --catalog rex.db --announce-url http://&lt;LAN IP&gt;:32400
 
 <span class="c5"># zurg config.yml</span>
 <span class="c2">rex_url</span>: http://&lt;rex host&gt;:32400
 <span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;
 
-<span class="c5"># rex-direct in rex.env and forward port 32400</span>
-DMM_API_KEY=&lt;your DMM API key&gt;</pre>
+<span class="c5"># outside your home forward port 32400 to rex</span></pre>
       </div>
     </div>
   </section>
