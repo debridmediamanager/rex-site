@@ -268,30 +268,30 @@
         <p class="sec-label">06 / Setup</p>
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
-          <li><span>Download the build for your machine and unpack it. There are builds for Linux and macOS and Windows. Linux needs glibc 2.35 or newer as on Ubuntu 22.04 and up.</span></li>
-          <li><span>Start rex once with its LAN IP. Nothing after this restarts it. The first start makes an empty Debrid Movies and Debrid TV library and names the server after the machine. rex never needs your Plex token or a TMDB key.</span></li>
-          <li><span>Add it to a fresh free Plex account made just for rex with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. rex tells Plex its address the moment it is claimed and gets its own HTTPS address too. Do it before zurg sends anything so titles arrive with their posters. rex plays nothing until it is claimed. This step is at your own risk.</span></li>
-          <li><span>Add rex's LAN IP to zurg and restart zurg. It needs a zurg nightly from October 19 or later. zurg sends rex its whole library and then every change. With your optional DMM API key zurg also asks DMM exactly what each file is. A zurg folder such as anime gets libraries of its own when you give it <span class="mono">rex_shows</span> or <span class="mono">rex_movies</span> in zurg's config from its next nightly after October 22. What it already holds moves there with its watch history. Every other folder stays in Debrid Movies and Debrid TV. Rename them in Plex as you like. A library you delete stays deleted until you add it again with Add Library. Only this machine and your home network and Tailscale can push to it. A tunnel or proxy on the rex machine counts as local so block <span class="mono">/rex/</span> in it. A router that shows outside visitors with its own address makes them look local too.</span></li>
-          <li><span>Outside your home the apps want an HTTPS address and the web app wants one even at home. rex-direct gives a claimed rex one and needs a single port forward. Or start rex with a certificate for a hostname you own. <a href="https://notes.debridmediamanager.com/guides/rex/#use-it-outside-your-home-optional">The guide</a> covers Tailscale and a VPS and how to check it from home and away.</span></li>
+          <li><span>Download the build for your machine and unpack it. Linux needs glibc 2.35 or newer.</span></li>
+          <li><span>Start rex once with its LAN IP. It makes an empty movie and TV library.</span></li>
+          <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. Do it before zurg sends anything. At your own risk.</span></li>
+          <li><span>Add rex's LAN IP to zurg and restart zurg. It needs a zurg nightly from October 19 or later.</span></li>
+          <li><span>Forward port 32400 to rex to use its own HTTPS address. The web app needs it even at home.</span></li>
         </ol>
-        <p class="note">Use a build newer than nightly 2026.10.22.0040 or build rex from its source. It adds supported server features rather than a Plex subscription. <a href="https://notes.debridmediamanager.com/guides/rex/#movie-and-tv-capabilities">See the capabilities and requirements</a> for Downloads and skipping and thumbnails and audio processing and local controls.</p>
+        <p class="note"><a href="https://notes.debridmediamanager.com/guides/rex/">The guide</a> has every step plus Tailscale and a VPS. A proxy on the rex machine must block <span class="mono">/rex/</span>. <a href="https://notes.debridmediamanager.com/guides/rex/#movie-and-tv-capabilities">Downloads and skipping</a> need a build newer than nightly 2026.10.22.0040.</p>
       </div>
       <div class="glass" style="overflow:hidden">
         <div class="panel-bar">
           <span class="mono" style="font-size:11.5px;color:var(--faint);letter-spacing:.1em">SETUP</span>
           <span class="mono" style="font-size:11.5px;color:var(--faint);margin-left:auto">Linux · macOS · Windows</span>
         </div>
-<pre tabindex="0" aria-label="Setup commands"><span class="c5"># start it once (the first start makes the library)</span>
+<pre tabindex="0" aria-label="Setup commands"><span class="c5"># start it once</span>
 <span class="c1">rex</span> --catalog rex.db --announce-url http://&lt;rex's LAN IP&gt;:32400
 
-<span class="c5"># claim it on a fresh Plex account with a code from plex.tv/claim</span>
+<span class="c5"># claim it with a code from plex.tv/claim</span>
 curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"
 
 <span class="c5"># zurg config.yml</span>
 <span class="c2">rex_url</span>: http://&lt;rex's LAN IP&gt;:32400
-<span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;   <span class="c5"># optional: DMM's exact matches, else zurg reads the name</span>
+<span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;   <span class="c5"># optional</span>
 
-<span class="c5"># outside your home forward port 32400 to rex</span></pre>
+<span class="c5"># then forward port 32400 to rex</span></pre>
       </div>
     </div>
   </section>
