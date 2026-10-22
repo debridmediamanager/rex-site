@@ -76,11 +76,11 @@
   <div class="wrap hero">
     <div class="hero-copy">
       <p class="eyebrow">Plex compatible &middot; Owns no files &middot; Sponsor beta Oct 15</p>
-      <h1>Your debrid and Usenet library<br><span style="color:var(--accent)">in every Plex&nbsp;app.</span></h1>
+      <h1>Your debrid and Usenet library<br><span style="color:var(--accent)">in your Plex&nbsp;apps.</span></h1>
       <p class="lede">Your movies and shows stay with your debrid service or Usenet provider. rex presents that library to Plex clients (official or compatible) as a normal server with posters and seasons and your watch history.</p>
 
       <div class="hu">
-        <p><span class="hu-k">No scanning</span> A new release shows up in your library the moment its source tells rex about it. rex never reads a file to find out what it is.</p>
+        <p><span class="hu-k">No scanning</span> A new release shows up in your library the moment its source sends rex its details. rex never reads a file to find out what it is.</p>
         <a class="hu-link" href="#speed">How fast it feels on a real library &rarr;</a>
       </div>
 
@@ -92,7 +92,7 @@
         <a class="btn btn-ghost" href="#setup">How it is set up</a>
       </div>
 
-      <p class="note" style="max-width:470px">The closed beta for sponsors opens October 15. The first public release and the source code land on Halloween October 31. After that the public release ships every 30 days on the last day of the month and runs 30 days behind the sponsor builds.</p>
+      <p class="note" style="max-width:470px">The closed beta for sponsors opened October 15. The first public release and the source code land on Halloween October 31. After that the public release ships on the last day of each month and runs 30 days behind the sponsor builds.</p>
     </div>
 
     <div class="glass" style="overflow:hidden;align-self:start;padding:10px">
@@ -111,20 +111,20 @@
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
           <h3>It looks like any other server.</h3>
-          <p>Once you add it to your account it shows up in the apps next to your other servers. Movies and shows get posters and summaries and cast and seasons. Watched state and Continue Watching and playlists and collections and edits and Fix Match all work and survive a restart. Each file starts on the audio and subtitle languages your Plex account asks for. Search Subtitles checks the subtitle you pick against the file and fixes its timing when it is off. Movie editions and the full server Dashboard also work with a free claiming account.</p>
-          <p class="note" style="margin-top:auto;padding-top:6px">Apps on your home network find it on their own when it runs on port 32400.</p>
+          <p>Once you add it to your account it shows up in the apps next to your other servers. Movies and shows get posters and summaries and cast and seasons. Watched state and Continue Watching and playlists and collections and edits and Fix Match all work and survive a restart. Each file starts on the audio and subtitle languages your Plex account asks for. Search Subtitles checks the subtitle you pick against a text subtitle in the file or against its sound when FFmpeg is set up. It fixes the timing when it is off. Movie editions and the full server Dashboard also work with a free claiming account.</p>
+          <p class="note" style="margin-top:auto;padding-top:6px">Apps on your home network also find it on their own through Plex's LAN discovery. That is on by default when it uses port 32400.</p>
         </div>
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b69ae8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5"/></svg>
           <h3>Many sources. One library.</h3>
           <p>Each source sends rex the files it has and keeps it up to date. zurg does this for you today and anything that can run ffprobe can do it too. A debrid account and a Usenet account each behind its own zurg end up in one Movies and one TV library.</p>
-          <p class="note" style="margin-top:auto;padding-top:6px">The same film from two sources becomes one title with two versions.</p>
+          <p class="note" style="margin-top:auto;padding-top:6px">The same film from two sources becomes one title with two versions once both are matched.</p>
         </div>
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l15-9L5 3Z"/></svg>
           <h3>It streams straight from the source.</h3>
-          <p>When you press play rex reads the file from where it lives and hands it on. Nothing is downloaded first. Files play in their original quality. Delete a title in the app and it is deleted at its source too.</p>
-          <p class="note" style="margin-top:auto;padding-top:6px">Give it FFmpeg and it also converts what a device cannot play. With a graphics chip a converted film starts in about 2 seconds even on a small Intel box.</p>
+          <p>When you press play rex reads the file from where it lives and hands it on. Nothing is downloaded first. Files play in their original quality. Signed in as the account that owns rex you can delete a title in the app and it is deleted at its source too.</p>
+          <p class="note" style="margin-top:auto;padding-top:6px">Give it FFmpeg and it also converts what a device cannot play. With a graphics chip a converted 1080p film starts in about 2 seconds even on a small Intel box.</p>
         </div>
       </div>
     </div>
@@ -190,7 +190,7 @@
           </div>
         </div>
         <hr class="rule">
-        <p class="note">Measured on a laptop with an eight core processor. The library was a real one with 4014 movies and 660 shows holding 34258 episodes. Each figure is the middle of seven runs of the official web app in Chrome on the same machine with a fresh browser every run. Your own times depend on your machine and your connection. rex used about 760 MB of memory during the run.</p>
+        <p class="note">Measured on a laptop with an eight core processor. The library was a real one with 4014 movies and 660 shows holding 34258 episodes. Each figure is the middle of seven runs of the official web app in Chrome on the same machine with a fresh browser every run. Your own times depend on your machine and your connection. rex used about 760 MB of memory during the run and up to 1.8 GB while it started.</p>
       </div>
     </div>
   </section>
@@ -209,7 +209,7 @@
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>A server is not a subscription.</h3></div>
-          <p>Plex Web plays away from home with free claiming and viewing accounts. Other apps have not been playback tested. App eligibility and cloud features and Plex Home access still belong to Plex. Converting video needs no pass.</p>
+          <p>Plex Web plays away from home with free claiming and viewing accounts. Other apps have not been tested away from home on free accounts. App eligibility and cloud features and Plex Home access still belong to Plex. Converting video needs no pass.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Offline downloads lose text subtitles.</h3></div>
@@ -221,7 +221,7 @@
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Outside your home needs your own address.</h3></div>
-          <p>The web app only connects over HTTPS and rex has no relay. rex-direct gives it one with a single port forward. Or give it a certificate for a hostname you own. Without a public IP at home use Tailscale or a small VPS that forwards to rex. Skip tunnels that cap bandwidth and keep a Cloudflare tunnel out of the way because it makes every play start read the whole file.</p>
+          <p>The web app only connects over HTTPS and rex has no relay. rex-direct gives it one with a single port forward. One Plex account can hold up to ten rex-direct names. Or give it a certificate for a hostname you own. Without a public IP at home use Tailscale or a small VPS that forwards to rex. Skip tunnels that cap bandwidth and keep a Cloudflare tunnel out of the way because it makes every play start read the whole file.</p>
         </div>
       </div>
     </div>
@@ -233,7 +233,7 @@
       <div class="sec-head" style="max-width:760px">
         <p class="sec-label">05 / Access</p>
         <h2>Sponsors first.<br>Everyone 30 days later.</h2>
-        <p class="lede">rex opens as a closed beta for sponsors on October 15 and reaches the public on October 31 along with its source code. The public release ships once every 30 days on the last day of the month. It carries the sponsor builds from 30 days before.</p>
+        <p class="lede">rex opened as a closed beta for sponsors on October 15 and reaches the public on October 31 along with its source code. The public release ships on the last day of each month. It carries the sponsor builds from 30 days before.</p>
       </div>
       <div class="access">
         <div class="glass plan" style="border-color:rgba(255,154,98,.40);box-shadow:0 24px 70px rgba(255,154,98,.14)">
@@ -246,7 +246,7 @@
           <div class="plan-cta">
             <a class="btn btn-primary" href="https://gatekeeper.debridmediamanager.com/">Get access</a>
           </div>
-          <p class="note">Sponsoring happens at <a href="https://gatekeeper.debridmediamanager.com/">gatekeeper</a>. It covers rex and the <a href="https://zurg.debridmediamanager.com/">zurg</a> nightly. Link your GitHub account there and an invite to the rex repository arrives by email. GitHub sends 50 invites a day, so yours can take a few days in the first weeks.</p>
+          <p class="note">Sponsoring happens at <a href="https://gatekeeper.debridmediamanager.com/">gatekeeper</a>. It covers rex and the <a href="https://zurg.debridmediamanager.com/">zurg</a> nightly. Link your GitHub account there and an invite to the rex repository arrives by email. GitHub lets a repository hold only 50 unanswered invites so accept yours when it arrives. An unanswered one can be withdrawn and sent again later.</p>
         </div>
         <div class="card plan">
           <div class="plan-h"><span class="t" style="color:var(--muted)">Public</span><span class="badge badge-off">Free &middot; Oct 31</span></div>
@@ -268,13 +268,13 @@
         <p class="sec-label">06 / Setup</p>
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
-          <li><span>Download the build for your machine and unpack it. There are builds for Linux and macOS and Windows. Linux needs Ubuntu 22.04 or newer.</span></li>
+          <li><span>Download the build for your machine and unpack it. There are builds for Linux and macOS and Windows. Linux needs glibc 2.35 or newer as on Ubuntu 22.04 and up.</span></li>
           <li><span>Start rex once with its LAN IP. Nothing after this restarts it. The first start makes an empty Debrid Movies and Debrid TV library and names the server after the machine. rex never needs your Plex token or a TMDB key.</span></li>
           <li><span>Add it to a fresh free Plex account made just for rex with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. rex tells Plex its address the moment it is claimed and gets its own HTTPS address too. Do it before zurg sends anything so titles arrive with their posters. rex plays nothing until it is claimed. This step is at your own risk.</span></li>
-          <li><span>Add rex's LAN IP to zurg and restart zurg. It needs a zurg nightly from October 17 or later. zurg sends rex its whole library and then every change. With your optional DMM API key zurg also asks DMM exactly what each file is. A zurg folder such as anime gets libraries of its own when you give it <span class="mono">rex_shows</span> or <span class="mono">rex_movies</span> in zurg's config from its next nightly after October 22. What it already holds moves there with its watch history. Every other folder stays in Debrid Movies and Debrid TV. Rename them in Plex as you like. A library you delete stays deleted until you add it again with Add Library. Only this machine and your home network and Tailscale can push to it.</span></li>
-          <li><span>Outside your home the apps want an HTTPS address. rex-direct gives every claimed rex one and needs a single port forward. Or start rex with a certificate for a hostname you own.</span></li>
+          <li><span>Add rex's LAN IP to zurg and restart zurg. It needs a zurg nightly from October 19 or later. zurg sends rex its whole library and then every change. With your optional DMM API key zurg also asks DMM exactly what each file is. A zurg folder such as anime gets libraries of its own when you give it <span class="mono">rex_shows</span> or <span class="mono">rex_movies</span> in zurg's config from its next nightly after October 22. What it already holds moves there with its watch history. Every other folder stays in Debrid Movies and Debrid TV. Rename them in Plex as you like. A library you delete stays deleted until you add it again with Add Library. Only this machine and your home network and Tailscale can push to it. A tunnel or proxy on the rex machine counts as local so block <span class="mono">/rex/</span> in it. A router that shows outside visitors with its own address makes them look local too.</span></li>
+          <li><span>Outside your home the apps want an HTTPS address. rex-direct gives a claimed rex one and needs a single port forward. Or start rex with a certificate for a hostname you own.</span></li>
         </ol>
-        <p class="note">Use a build with the movie and TV capability update. It adds supported server features rather than a Plex subscription. <a href="https://notes.debridmediamanager.com/guides/rex/#movie-and-tv-capabilities">See the capabilities and requirements</a> for Downloads and skipping and thumbnails and audio processing and local controls.</p>
+        <p class="note">Use a build newer than nightly 2026.10.22.0040 or build rex from its source. It adds supported server features rather than a Plex subscription. <a href="https://notes.debridmediamanager.com/guides/rex/#movie-and-tv-capabilities">See the capabilities and requirements</a> for Downloads and skipping and thumbnails and audio processing and local controls.</p>
       </div>
       <div class="glass" style="overflow:hidden">
         <div class="panel-bar">
