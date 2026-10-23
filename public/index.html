@@ -209,7 +209,7 @@
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>A server is not a subscription.</h3></div>
-          <p>Plex Web plays away from home with free claiming and viewing accounts. Other apps have not been tested away from home on free accounts. App eligibility and cloud features and Plex Home access still belong to Plex. Converting video needs no pass.</p>
+          <p>Plex Web plays away from home with free claiming and viewing accounts. Other apps have not been tested away from home on free accounts. Converting video needs no pass.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Offline downloads lose text subtitles.</h3></div>
@@ -269,12 +269,12 @@
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
           <li><span>Download the build for your machine and unpack it. Linux needs glibc 2.35 or newer.</span></li>
-          <li><span>Start rex once with its LAN IP. It makes an empty movie and TV library.</span></li>
+          <li><span>Start rex. It makes an empty movie and TV library.</span></li>
           <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. Do it before a source sends anything. At your own risk.</span></li>
-          <li><span>Point a source at rex. For a debrid account that is zurg: add rex's LAN IP to its config and restart it (a zurg nightly from October 19 or later). Your own app or an addon registers itself the same way.</span></li>
+          <li><span>Point a source at rex. For a debrid account that is zurg: add rex's LAN IP to its config and restart it. Your own app or an addon registers itself the same way.</span></li>
           <li><span>Forward port 32400 to rex to use its own HTTPS address. The web app needs it even at home.</span></li>
         </ol>
-        <p class="note"><a href="https://notes.debridmediamanager.com/guides/rex/">The guide</a> has every step plus Tailscale and a VPS. A proxy on the rex machine must block <span class="mono">/rex/</span>. <a href="https://notes.debridmediamanager.com/guides/rex/#movie-and-tv-capabilities">Downloads and skipping</a> need a build newer than nightly 2026.10.22.0040.</p>
+        <p class="note"><a href="https://notes.debridmediamanager.com/guides/rex/">The guide</a> has every step plus Tailscale and a VPS. It needs rex nightly 2026.10.25 or newer and zurg nightly 2026.10.22 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
       </div>
       <div class="glass" style="overflow:hidden">
         <div class="panel-bar">
@@ -282,7 +282,7 @@
           <span class="mono" style="font-size:11.5px;color:var(--faint);margin-left:auto">Linux · macOS · Windows</span>
         </div>
 <pre tabindex="0" aria-label="Setup commands"><span class="c5"># start it once</span>
-<span class="c1">rex</span> --catalog rex.db --announce-url http://&lt;rex's LAN IP&gt;:32400
+<span class="c1">rex</span>
 
 <span class="c5"># claim it with a code from plex.tv/claim</span>
 curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"
