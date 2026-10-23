@@ -241,7 +241,7 @@
           <div class="flist">
             <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">Every build the day it is made</span></div>
             <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">Linux and macOS and Windows</span></div>
-            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">The zurg nightly that feeds it</span></div>
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">The zurg nightly, rex's source for debrid accounts</span></div>
           </div>
           <div class="plan-cta">
             <a class="btn btn-primary" href="https://gatekeeper.debridmediamanager.com/">Get access</a>
@@ -270,8 +270,8 @@
         <ol class="steps">
           <li><span>Download the build for your machine and unpack it. Linux needs glibc 2.35 or newer.</span></li>
           <li><span>Start rex once with its LAN IP. It makes an empty movie and TV library.</span></li>
-          <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. Do it before zurg sends anything. At your own risk.</span></li>
-          <li><span>Add rex's LAN IP to zurg and restart zurg. It needs a zurg nightly from October 19 or later.</span></li>
+          <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. Do it before a source sends anything. At your own risk.</span></li>
+          <li><span>Point a source at rex. For a debrid account that is zurg: add rex's LAN IP to its config and restart it (a zurg nightly from October 19 or later). Your own app or an addon registers itself the same way.</span></li>
           <li><span>Forward port 32400 to rex to use its own HTTPS address. The web app needs it even at home.</span></li>
         </ol>
         <p class="note"><a href="https://notes.debridmediamanager.com/guides/rex/">The guide</a> has every step plus Tailscale and a VPS. A proxy on the rex machine must block <span class="mono">/rex/</span>. <a href="https://notes.debridmediamanager.com/guides/rex/#movie-and-tv-capabilities">Downloads and skipping</a> need a build newer than nightly 2026.10.22.0040.</p>
