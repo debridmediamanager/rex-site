@@ -15,7 +15,7 @@ step. `public/` holds exactly what ships.
 - Benchmark figures come from a recorded run on a dedicated box; keep the date and the
   library size beside them.
 - The Setup and Limits sections summarise rex's `README.md`. They change with it and with
-  `docs/setup.md` and the notes guides `guides/rex.md` and `guides/rex-any-source.md`, in
+  `docs/setup.md` and the notes guides `rex/with-zurg.md` and `rex/any-source.md`, in
   the same task. rex's CLAUDE.md lists all five.
 
 `./deploy.sh` publishes Cloudflare Pages project `rex`. Verify with a cache-busted URL
