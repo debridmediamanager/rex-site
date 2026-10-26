@@ -271,10 +271,10 @@
           <li><span>Download the build for your machine and unpack it. Linux needs glibc 2.35 or newer.</span></li>
           <li><span>Start rex. It makes an empty movie and TV library.</span></li>
           <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. At your own risk.</span></li>
-          <li><span>Point a source at rex. For a debrid account that is zurg: add rex's LAN IP to its config and restart it. Your own app or an addon registers itself the same way.</span></li>
+          <li><span>Point a source at rex. For a debrid account log in to Plex on zurg's dashboard as the account that owns rex and pick rex. Your own app or an addon registers itself the same way.</span></li>
           <li><span>Forward port 32400 to rex to use its own HTTPS address. The web app needs it even at home.</span></li>
         </ol>
-        <p class="note"><a href="https://notes.debridmediamanager.com/rex/with-zurg/">The guide</a> has every step plus Tailscale and a VPS. It needs rex nightly 2026.10.25 or newer and zurg nightly 2026.10.22 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
+        <p class="note"><a href="https://notes.debridmediamanager.com/rex/with-zurg/">The guide</a> has every step plus Tailscale and a VPS. It needs rex nightly 2026.10.25 or newer and zurg nightly 2026.10.27 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
       </div>
       <div class="glass" style="overflow:hidden">
         <div class="panel-bar">
@@ -287,9 +287,9 @@
 <span class="c5"># claim it with a code from plex.tv/claim</span>
 curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"
 
-<span class="c5"># zurg config.yml</span>
-<span class="c2">rex_url</span>: http://&lt;rex's LAN IP&gt;:32400
-<span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;   <span class="c5"># optional</span>
+<span class="c5"># zurg dashboard then Config</span>
+<span class="c2">Login with Plex</span>      <span class="c5"># as the fresh account then pick rex</span>
+<span class="c2">DMM API Key</span>          <span class="c5"># optional</span>
 
 <span class="c5"># then forward port 32400 to rex</span></pre>
       </div>
