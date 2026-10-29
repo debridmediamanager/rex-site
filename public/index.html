@@ -44,6 +44,18 @@
   .launch:hover { background: #ffad80; color: #1a0d05; }
   .steps a { text-decoration: underline; text-underline-offset: .22em; }
   .steps li::before { content: counter(s); font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(255,154,98,.4); border-radius: 999px; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
+  .os-bar { gap: 6px; padding: 10px 14px; }
+  .os { font: 12px var(--mono); letter-spacing: .04em; color: var(--faint); background: none; border: 1px solid transparent; border-radius: 999px; min-height: 44px; padding: 0 14px; cursor: pointer; }
+  .os:hover { color: var(--text); }
+  .os[aria-pressed="true"] { color: var(--accent); border-color: rgba(255,154,98,.4); }
+  .cmds { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+  .cmds > div:not(.cmd) { display: flex; flex-direction: column; gap: 16px; }
+  .cmds > div[hidden] { display: none; }
+  .cmd-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+  .cmd-h { margin: 0; font-family: var(--code); font-size: 14px; line-height: 1.5; color: var(--faint); }
+  .cmd pre { padding: 10px 14px; line-height: 1.7; white-space: pre; background: rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.075); border-radius: 8px; }
+  .copy { flex: none; min-height: 44px; font: 12px var(--mono); color: var(--soft); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 6px; padding: 0 14px; cursor: pointer; }
+  .copy:hover { color: var(--text); border-color: rgba(255,154,98,.4); }
 </style>
 </head>
 <body>
@@ -273,21 +285,31 @@
         <p class="note"><a href="https://notes.debridmediamanager.com/rex/with-zurg/">The guide</a> has every step plus Tailscale and a VPS. It needs rex nightly 2026.10.25 or newer and zurg nightly 2026.10.22 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
       </div>
       <div class="glass" style="overflow:hidden">
-        <div class="panel-bar">
-          <span class="mono" style="font-size:11.5px;color:var(--faint);letter-spacing:.1em">SETUP</span>
-          <span class="mono" style="font-size:11.5px;color:var(--faint);margin-left:auto">Linux · macOS · Windows</span>
+        <div class="panel-bar os-bar" role="group" aria-label="Your system">
+          <button type="button" class="os" data-os="linux" aria-pressed="true">Linux</button>
+          <button type="button" class="os" data-os="mac" aria-pressed="false">macOS</button>
+          <button type="button" class="os" data-os="win" aria-pressed="false">Windows</button>
         </div>
-<pre tabindex="0" aria-label="Setup commands"><span class="c5"># start it once</span>
-<span class="c1">rex</span>
-
-<span class="c5"># claim it with a code from plex.tv/claim</span>
-curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"
-
-<span class="c5"># zurg config.yml</span>
-<span class="c2">rex_url</span>: http://&lt;rex's LAN IP&gt;:32400
-<span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;   <span class="c5"># optional</span>
-
-<span class="c5"># then forward port 32400 to rex</span></pre>
+        <div class="cmds">
+          <div data-panel="linux">
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>rust/target/release/rex</code></pre></div>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># claim it with a code from plex.tv/claim</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"</code></pre></div>
+          </div>
+          <div data-panel="mac" hidden>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>xattr -dr com.apple.quarantine .
+rust/target/release/rex</code></pre></div>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># claim it with a code from plex.tv/claim</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"</code></pre></div>
+          </div>
+          <div data-panel="win" hidden>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># once in PowerShell as administrator so your network reaches rex</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>New-NetFirewallRule -DisplayName rex -Protocol TCP -LocalPort 32400
+New-NetFirewallRule -DisplayName "rex discovery" -Protocol UDP -LocalPort 32410,32414</code></pre></div>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder in PowerShell</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>.\rust\target\release\rex.exe</code></pre></div>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># claim it with a code from plex.tv/claim</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>curl.exe -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"</code></pre></div>
+          </div>
+          <div class="cmd"><div class="cmd-top"><p class="cmd-h"># add to zurg's config.yml and restart zurg</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code><span class="c2">rex_url</span>: http://&lt;rex's LAN IP&gt;:32400
+<span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;   <span class="c5"># optional</span></code></pre></div>
+          <p class="cmd-h"># then forward port 32400 to rex</p>
+        </div>
       </div>
     </div>
   </section>
@@ -309,5 +331,22 @@ curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"
   </nav>
 </footer>
 
+<script>
+(() => {
+  const pick = os => document.querySelectorAll('[data-os]').forEach(b => {
+    b.setAttribute('aria-pressed', b.dataset.os === os);
+    document.querySelector(`[data-panel="${b.dataset.os}"]`).hidden = b.dataset.os !== os;
+  });
+  document.querySelectorAll('[data-os]').forEach(b => b.addEventListener('click', () => pick(b.dataset.os)));
+  const p = navigator.userAgentData?.platform || navigator.platform || '';
+  if (/^Win/i.test(p)) pick('win'); else if (/^Mac/i.test(p) && navigator.maxTouchPoints < 2) pick('mac');
+  document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {
+    const pre = b.closest('.cmd').querySelector('pre');
+    try { await navigator.clipboard.writeText(pre.textContent); b.textContent = 'Copied'; }
+    catch { getSelection().selectAllChildren(pre); b.textContent = 'Press Ctrl+C'; }
+    setTimeout(() => { b.textContent = 'Copy'; }, 1500);
+  }));
+})();
+</script>
 </body>
 </html>
