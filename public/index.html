@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>rex. A media server that owns no files.</title>
-<meta name="description" content="rex is a Plex compatible media server for your debrid and Usenet library. Your files stay where they are and the official apps see a normal server with posters and seasons and watch history. rex is free and open source from Halloween October 31.">
+<meta name="description" content="rex is a Plex compatible media server for your debrid and Usenet library. Your files stay where they are and the official apps see a normal server with posters and seasons and watch history. rex is free and open source.">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/logo.svg">
@@ -39,9 +39,6 @@
   .hero-shot { border-radius: 14px; display: block; width: 100%; height: auto; }
   .steps { counter-reset: s; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
   .steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 12px; font-size: 15px; line-height: 1.6; color: var(--muted); }
-  .launch { display: block; text-align: center; padding: 5px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.5; letter-spacing: .04em; color: #1a0d05; background: var(--brand); text-decoration: none; }
-  @media (max-width: 400px) { .launch { font-size: 11px; padding: 5px 8px; letter-spacing: 0; } }
-  .launch:hover { background: #ffad80; color: #1a0d05; }
   .steps a { text-decoration: underline; text-underline-offset: .22em; }
   .steps li::before { content: counter(s); font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid rgba(255,154,98,.4); border-radius: 999px; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
   .os-bar { gap: 6px; padding: 10px 14px; }
@@ -67,8 +64,6 @@
   <div class="vig"></div>
 </div>
 
-<a class="launch" href="#access">Free and open source on Halloween Oct 31</a>
-
 <header>
   <div class="wrap nav">
     <a class="brand" href="/" aria-label="rex home" aria-current="page"><img src="/logo.svg" alt="" width="30" height="30"><span class="brand-word">rex</span></a>
@@ -78,7 +73,7 @@
       <a href="#access">Access</a>
       <a href="#setup">Setup</a>
     </nav>
-    <a class="btn btn-primary btn-sm cta" href="#access">Free on Oct 31</a>
+    <a class="btn btn-primary btn-sm cta" href="#setup">Get rex</a>
   </div>
 </header>
 
@@ -87,7 +82,7 @@
   <!-- HERO -->
   <div class="wrap hero">
     <div class="hero-copy">
-      <p class="eyebrow">Plex compatible &middot; Owns no files &middot; Open source Oct 31</p>
+      <p class="eyebrow">Plex compatible &middot; Owns no files &middot; Free and open source</p>
       <h1>Your debrid and Usenet library<br><span style="color:var(--accent)">in your Plex&nbsp;apps.</span></h1>
       <p class="lede">Your movies and shows stay with your debrid service or Usenet provider. rex presents that library to Plex clients (official or compatible) as a normal server with posters and seasons and your watch history.</p>
 
@@ -103,7 +98,7 @@
         </a>
       </div>
 
-      <p class="note" style="max-width:470px">rex goes public with its source code on Halloween October 31. It is free for everyone and every build is out the day it is made.</p>
+      <p class="note" style="max-width:470px">rex is free for everyone and <a href="https://github.com/debridmediamanager/rex">open source</a> under the MIT license. Every build is out the day it is made.</p>
     </div>
 
     <div class="glass" style="overflow:hidden;align-self:start;padding:10px">
@@ -243,16 +238,20 @@
     <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,44px)">
       <div class="sec-head" style="max-width:760px">
         <p class="sec-label">05 / Access</p>
-        <h2>Free for everyone.<br>Open source on Halloween.</h2>
-        <p class="lede">rex goes public on October 31 with its source code under the MIT license. There is no paid tier and no waiting period. Every build is public the day it is made.</p>
+        <h2>Free for everyone.<br>Open source.</h2>
+        <p class="lede">rex and its source code are public under the MIT license. There is no paid tier and no waiting period. Every build is public the day it is made.</p>
       </div>
       <div class="access">
         <div class="glass plan" style="border-color:rgba(255,154,98,.40);box-shadow:0 24px 70px rgba(255,154,98,.14)">
-          <div class="plan-h"><span class="t">rex</span><span class="badge badge-on">Free &middot; Oct 31</span></div>
+          <div class="plan-h"><span class="t">rex</span><span class="badge badge-on">Free</span></div>
           <div class="flist">
             <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">Every build the day it is made</span></div>
             <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">Linux and macOS and Windows</span></div>
             <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--soft)">The source code under the MIT license</span></div>
+          </div>
+          <div class="plan-cta">
+            <a class="btn btn-primary" href="https://github.com/debridmediamanager/rex/releases">Download rex</a>
+            <a class="btn btn-ghost" href="https://github.com/debridmediamanager/rex">Source code</a>
           </div>
         </div>
         <div class="card plan">
@@ -276,14 +275,14 @@
         <p class="sec-label">06 / Setup</p>
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
-          <li><span>Download the build for your machine and unpack it. Linux needs glibc 2.35 or newer.</span></li>
+          <li><span><a href="https://github.com/debridmediamanager/rex/releases">Download the newest build</a> for your machine and unpack it. Linux needs glibc 2.35 or newer.</span></li>
           <li><span>Start rex. It makes an empty movie and TV library.</span></li>
           <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. At your own risk.</span></li>
-          <li><span>Point a source at rex. For a debrid account that is zurg: add rex's LAN IP to its config and restart it. Your own app or an addon registers itself the same way.</span></li>
+          <li><span>Point a source at rex. For a debrid account that is zurg. Add rex's LAN IP to its config and restart it. Your own app or an addon registers itself the same way.</span></li>
           <li><span>Forward port 32400 to rex to use its own HTTPS address. The web app needs it even at home.</span></li>
           <li><span>Coming from another Plex server? <a href="https://notes.debridmediamanager.com/rex/import-watched/">Bring your watch history</a> with what you watched and rated and where you stopped.</span></li>
         </ol>
-        <p class="note"><a href="https://notes.debridmediamanager.com/rex/with-zurg/">The guide</a> has every step plus Tailscale and a VPS. It needs rex nightly 2026.10.25 or newer and zurg nightly 2026.10.22 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
+        <p class="note"><a href="https://notes.debridmediamanager.com/rex/with-zurg/">The guide</a> has every step plus Tailscale and a VPS. It needs rex nightly 2026.10.25 or newer and zurg nightly 2026.10.27 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
       </div>
       <div class="glass" style="overflow:hidden">
         <div class="panel-bar os-bar" role="group" aria-label="Your system">
@@ -327,6 +326,7 @@ New-NetFirewallRule -DisplayName "rex discovery" -Protocol UDP -LocalPort 32410,
   <nav class="wrap footer-nav" aria-label="Footer navigation">
     <a href="/">rex</a><a href="https://zurg.debridmediamanager.com/">zurg</a>
     <a href="https://notes.debridmediamanager.com/rex/">Documentation</a>
+    <a href="https://github.com/debridmediamanager/rex">Source code</a>
     <a href="https://debridmediamanager.com/">Debrid Media Manager</a>
     <a href="https://discord.com/invite/7u4YjMThXP">Discord</a>
   </nav>
