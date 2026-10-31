@@ -212,7 +212,7 @@
       <div class="g3">
         <div class="card rec">
           <div class="rec-h"><h3>Movies and TV only.</h3></div>
-          <p>Music and photo libraries stay empty. There is no Live TV and no DVR.</p>
+          <p>Music and photo libraries stay empty. rex has no tuner and no DVR though an addon can bring live channels.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>A server is not a subscription.</h3></div>
@@ -284,6 +284,7 @@
           <li><span>Coming from another Plex server? <a href="https://notes.debridmediamanager.com/rex/import-watched/">Bring your watch history</a> with what you watched and rated and where you stopped.</span></li>
         </ol>
         <p class="note"><a href="https://notes.debridmediamanager.com/rex/with-zurg/">The guide</a> has every step plus Tailscale and a VPS. It needs rex nightly 2026.10.25 or newer and zurg nightly 2026.10.27 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
+        <p class="note">Deleting a title in your apps deletes it at its source too. Untick Allow media deletion in the server's advanced Library settings to stop that. rex never updates itself so download a newer build to update. The Docker image is private and a pull may be refused but the download works for everyone.</p>
       </div>
       <div class="glass" style="overflow:hidden">
         <div class="panel-bar os-bar" role="group" aria-label="Your system">
