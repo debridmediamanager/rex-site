@@ -20,3 +20,7 @@ step. `public/` holds exactly what ships.
 
 `./deploy.sh` publishes Cloudflare Pages project `rex`. Verify with a cache-busted URL
 (`?cb=1`); the zone cache can keep the bare URL stale after a deploy.
+
+---
+
+**More from DMM:** [Debrid Media Manager](https://debridmediamanager.com/) · [zurg](https://zurg.debridmediamanager.com/) · [rex](https://rex.debridmediamanager.com/) · [Docs](https://notes.debridmediamanager.com/) · [Sponsor](https://gatekeeper.debridmediamanager.com/) · [Discord](https://discord.com/invite/7u4YjMThXP) · [Reddit](https://www.reddit.com/r/debridmediamanager/)
