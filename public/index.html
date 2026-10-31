@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#101720">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>rex. A media server that owns no files.</title>
 <meta name="description" content="rex is a Plex compatible media server for your debrid and Usenet library. Your files stay where they are and the official apps see a normal server with posters and seasons and watch history. rex is free and open source.">
@@ -14,17 +15,17 @@
 <link rel="canonical" href="https://rex.debridmediamanager.com/">
 <meta property="og:url" content="https://rex.debridmediamanager.com/">
 <meta property="og:site_name" content="rex">
-<meta property="og:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261031">
+<meta property="og:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261031b">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="rex. A media server that owns no files.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="rex. A media server that owns no files.">
 <meta name="twitter:description" content="A Plex compatible media server for your debrid and Usenet library. Nothing to download and nothing to scan.">
-<meta name="twitter:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261031">
+<meta name="twitter:image" content="https://rex.debridmediamanager.com/social-card.png?v=20261031b">
 <link rel="stylesheet" href="/site.css?v=systemfont1">
 <style>
-  :root { --accent: #ff9a62; --brand: #ff9a62; }
+  :root { --brand: #ff9a62; }
   .btn-primary { background: var(--brand); color: #1a0d05; box-shadow: 0 10px 34px rgba(255,154,98,.30); }
   .btn-primary:hover { background: #ffad80; color: #1a0d05; }
   .brand { display: inline-flex; align-items: center; gap: 10px; }
@@ -121,13 +122,13 @@
           <p class="note" style="margin-top:auto;padding-top:6px">Apps on your home network also find it on their own through Plex's LAN discovery. That is on by default when it uses port 32400.</p>
         </div>
         <div class="card feat">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b69ae8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5"/></svg>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5"/></svg>
           <h3>Many sources. One library.</h3>
           <p>Each source sends rex the files it has and keeps it up to date. zurg does this for you today and anything that can run ffprobe can do it too. A debrid account and a Usenet account each behind its own zurg end up in one Movies and one TV library.</p>
           <p class="note" style="margin-top:auto;padding-top:6px">The same film from two sources becomes one title with two versions once both are matched.</p>
         </div>
         <div class="card feat">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l15-9L5 3Z"/></svg>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l15-9L5 3Z"/></svg>
           <h3>It streams straight from the source.</h3>
           <p>When you press play rex reads the file from where it lives and hands it on. Nothing is downloaded first. Files play in their original quality. Signed in as the account that owns rex you can delete a title in the app and it is deleted at its source too.</p>
           <p class="note" style="margin-top:auto;padding-top:6px">Install jellyfin-ffmpeg and rex finds it and also converts what a device cannot play. With a graphics chip a converted 1080p film starts in about 2 seconds even on a small Intel box.</p>

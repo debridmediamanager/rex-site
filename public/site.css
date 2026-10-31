@@ -7,7 +7,7 @@
     --muted: #bac7d5;
     --dim: #afbdce;
     --faint: #a2b2c5;
-    --accent: #55baff;
+    --accent: #ff9a62;
     --violet: #b69ae8;
     --green: #17bf63;
     --amber: #ffad1f;
@@ -37,7 +37,7 @@
   }
   img { max-width: 100%; }
   a { color: var(--accent); text-decoration: none; transition: color .18s; }
-  a:hover { color: #6cc4f7; }
+  a:hover { color: #ffbe96; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
   /* atmosphere */
@@ -46,8 +46,8 @@
     position: absolute; inset: 0;
     background-image:
       radial-gradient(900px 620px at 78% 2%, rgba(255,154,98,.12) 0%, transparent 62%),
-      radial-gradient(760px 560px at 10% 14%, rgba(121,75,196,.10) 0%, transparent 60%),
-      radial-gradient(1200px 700px at 50% 60%, rgba(121,75,196,.09) 0%, transparent 66%);
+      radial-gradient(760px 560px at 10% 14%, rgba(255,154,98,.10) 0%, transparent 60%),
+      radial-gradient(1200px 700px at 50% 60%, rgba(255,154,98,.09) 0%, transparent 66%);
   }
   .grid-o {
     position: absolute; inset: 0; opacity: .45;
@@ -70,7 +70,7 @@
   }
   #migrating::before {
     content: ""; position: absolute; inset: 0 0 30% 0; pointer-events: none; z-index: -1;
-    background: radial-gradient(closest-side, rgba(121,75,196,.14) 0%, transparent 100%);
+    background: radial-gradient(closest-side, rgba(255,154,98,.14) 0%, transparent 100%);
   }
 
   .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
@@ -111,8 +111,8 @@
     font-family: var(--sans); font-size: 16px; font-weight: 700; letter-spacing: -.01em;
     border: 1px solid transparent; cursor: pointer; transition: .2s;
   }
-  .btn-primary { background: var(--accent); color: #06111c; box-shadow: 0 10px 34px rgba(255,154,98,.34); }
-  .btn-primary:hover { filter: brightness(1.12); color: #06111c; transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #1a0d05; box-shadow: 0 10px 34px rgba(255,154,98,.34); }
+  .btn-primary:hover { filter: brightness(1.12); color: #1a0d05; transform: translateY(-1px); }
   .btn-ghost { background: rgba(255,255,255,.04); color: var(--text); border-color: rgba(255,255,255,.14); }
   .btn-ghost:hover { background: rgba(255,255,255,.09); color: #fff; }
   .btn-sm { min-height: 44px; padding: 0 18px; font-size: 14.5px; border-radius: 10px; }
@@ -199,7 +199,7 @@
   .rec .win { color: var(--green); }
   .rec .lose { color: var(--rose); }
   .rec .glink { font-family: var(--mono); font-size: 12.5px; margin-top: auto; padding-top: 6px; }
-  .rec .glink:hover { color: #6cc4f7; }
+  .rec .glink:hover { color: #ffbe96; }
   .rec-h { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
   .rec-h .ver { font-family: var(--mono); font-size: 12px; color: var(--faint); }
 
@@ -226,7 +226,7 @@
   .price-w { flex: 1 1 220px; font-size: 14.5px; line-height: 1.6; color: var(--soft); }
   .price-w strong { color: var(--text); font-weight: 700; }
   .badge { font-family: var(--mono); font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; border-radius: 999px; padding: 5px 12px; font-weight: 700; }
-  .badge-on { color: #06111c; background: var(--accent); }
+  .badge-on { color: #1a0d05; background: var(--accent); }
   .badge-off { color: var(--dim); border: 1px solid rgba(255,255,255,.14); font-weight: 500; }
   .flist { display: flex; flex-direction: column; gap: 12px; }
   .fitem { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; }
@@ -312,7 +312,7 @@ pre { max-width: 100%; font-size: 14px; }
 .guide-content section p + p { margin-top: 16px; }
 .guide-content li { padding: 8px 0 8px 4px; }
 .guide-content ol, .guide-content ul { padding-left: 22px; }
-.guide-content code { font: .875em/1.7 var(--code); color: #bce0f6; overflow-wrap: anywhere; }
+.guide-content code { font: .875em/1.7 var(--code); color: #ffd9c2; overflow-wrap: anywhere; }
 .guide-content table { min-width: 0; table-layout: fixed; font: 16px/1.65 var(--sans); margin: 20px 0; }
 .guide-content th, .guide-content td { text-align: left; white-space: normal; vertical-align: top; padding: 14px 8px; }
 .guide-content th { color: var(--text); font-size: 14px; letter-spacing: 0; text-transform: none; }
