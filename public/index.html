@@ -124,7 +124,7 @@
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5"/></svg>
           <h3>Many sources. One library.</h3>
-          <p>Each source sends rex the files it has and keeps it up to date. zurg does this for you today and anything that can run ffprobe can do it too. A debrid account and a Usenet account each behind its own zurg end up in one Movies and one TV library.</p>
+          <p>Each source sends rex the files it has and keeps it up to date. zurg and rex-stremio do this for you and anything that can run ffprobe can do it too. Your debrid accounts and your Stremio addons end up in one Movies and one TV library.</p>
           <p class="note" style="margin-top:auto;padding-top:6px">The same film from two sources becomes one title with two versions once both are matched.</p>
         </div>
         <div class="card feat">
@@ -225,7 +225,7 @@
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>It needs a source that probes.</h3></div>
-          <p>Sources send container and stream details before a title appears. zurg does this and a big library takes a few hours the first time. Optional FFmpeg analysis reads source media and stores generated images locally. Downloads also use local storage.</p>
+          <p>Sources send container and stream details before a title appears. A big library can take a source a few hours the first time. Optional FFmpeg analysis reads source media and stores generated images locally. Downloads also use local storage.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Outside your home needs your own address.</h3></div>
@@ -259,7 +259,7 @@
         <div class="card plan">
           <div class="plan-h"><span class="t" style="color:var(--muted)">zurg nightly</span><span class="badge badge-off">Sponsors</span></div>
           <div class="flist">
-            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">rex's source for a debrid library</span></div>
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">A source for rex from a debrid library</span></div>
           </div>
           <div class="plan-cta">
             <a class="btn btn-ghost" href="https://gatekeeper.debridmediamanager.com/">Sponsor zurg</a>
@@ -280,11 +280,11 @@
           <li><span><a href="https://github.com/debridmediamanager/rex/releases">Download the newest build</a> for your machine and unpack it. Linux needs glibc 2.35 or newer.</span></li>
           <li><span>Start rex. It makes an empty movie and TV library.</span></li>
           <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. At your own risk.</span></li>
-          <li><span>Point a source at rex. For a debrid account that is zurg. Add rex's LAN IP to its config and restart it. Your own app or an addon registers itself the same way.</span></li>
+          <li><span>Point a source at rex. Give it rex's LAN IP and it registers itself. For zurg that goes in its config and for rex-stremio on its settings page.</span></li>
           <li><span>Forward port 32400 to rex to use its own HTTPS address. The web app needs it even at home.</span></li>
           <li><span>Coming from Plex? <a href="https://notes.debridmediamanager.com/rex/import-watched/">Bring your watch history</a> with what you watched and rated and where you stopped.</span></li>
         </ol>
-        <p class="note"><a href="https://notes.debridmediamanager.com/rex/with-zurg/">The guide</a> has every step plus Tailscale and a VPS. It needs rex nightly 2026.10.25 or newer and zurg nightly 2026.10.27 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
+        <p class="note">Each guide has every step. The ones for <a href="https://notes.debridmediamanager.com/rex/with-zurg/">zurg</a> and <a href="https://notes.debridmediamanager.com/rex/any-source/">your own app</a> also cover Tailscale and a VPS and the one for <a href="https://notes.debridmediamanager.com/rex/stremio/">Stremio addons</a> builds on them. rex needs nightly 2026.10.25 or newer and zurg nightly 2026.10.27 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
         <p class="note">Stuck? Ask in the rex-support forum on <a href="https://discord.com/invite/7u4YjMThXP">Discord</a>. The <a href="https://notes.debridmediamanager.com/rex/faq/">rex questions</a> answer the common ones.</p>
         <p class="note">Deleting a title in your apps deletes it at its source too. Untick Allow media deletion in the server's advanced Library settings to stop that. rex never updates itself so download a newer build to update.</p>
       </div>
@@ -310,7 +310,7 @@ New-NetFirewallRule -DisplayName "rex discovery" -Protocol UDP -LocalPort 32410,
             <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder in PowerShell</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>.\rust\target\release\rex.exe</code></pre></div>
             <div class="cmd"><div class="cmd-top"><p class="cmd-h"># claim it with a code from plex.tv/claim</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>curl.exe -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"</code></pre></div>
           </div>
-          <div class="cmd"><div class="cmd-top"><p class="cmd-h"># add to zurg's config.yml and restart zurg</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code><span class="c2">rex_url</span>: http://&lt;rex's LAN IP&gt;:32400
+          <div class="cmd"><div class="cmd-top"><p class="cmd-h"># for zurg add this to its config.yml and restart it</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code><span class="c2">rex_url</span>: http://&lt;rex's LAN IP&gt;:32400
 <span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;   <span class="c5"># optional</span></code></pre></div>
           <p class="cmd-h"># then forward port 32400 to rex</p>
         </div>
