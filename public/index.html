@@ -293,18 +293,18 @@
         </div>
         <div class="cmds">
           <div data-panel="linux">
-            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>rust/target/release/rex</code></pre></div>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>./rex</code></pre></div>
             <div class="cmd"><div class="cmd-top"><p class="cmd-h"># claim it with a code from plex.tv/claim</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"</code></pre></div>
           </div>
           <div data-panel="mac" hidden>
-            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>xattr -dr com.apple.quarantine .
-rust/target/release/rex</code></pre></div>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># let macOS run a program from the internet then start it once in the unpacked folder</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>xattr -dr com.apple.quarantine .
+./rex</code></pre></div>
             <div class="cmd"><div class="cmd-top"><p class="cmd-h"># claim it with a code from plex.tv/claim</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>curl -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"</code></pre></div>
           </div>
           <div data-panel="win" hidden>
             <div class="cmd"><div class="cmd-top"><p class="cmd-h"># once in PowerShell as administrator so your network reaches rex</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>New-NetFirewallRule -DisplayName rex -Protocol TCP -LocalPort 32400
 New-NetFirewallRule -DisplayName "rex discovery" -Protocol UDP -LocalPort 32410,32414</code></pre></div>
-            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder in PowerShell</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>.\rust\target\release\rex.exe</code></pre></div>
+            <div class="cmd"><div class="cmd-top"><p class="cmd-h"># start it once in the unpacked folder in PowerShell</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>.\rex.exe</code></pre></div>
             <div class="cmd"><div class="cmd-top"><p class="cmd-h"># claim it with a code from plex.tv/claim</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code>curl.exe -X POST "http://&lt;rex's LAN IP&gt;:32400/myplex/claim?token=claim-xxxx"</code></pre></div>
           </div>
           <div class="cmd"><div class="cmd-top"><p class="cmd-h"># for zurg add this to its config.yml and restart it</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code><span class="c2">rex_url</span>: http://&lt;rex's LAN IP&gt;:32400
