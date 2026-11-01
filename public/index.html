@@ -88,7 +88,7 @@
       <p class="lede">Every Plex app needs a server behind it and usually that server keeps all your movies on its hard drives. rex keeps none. You hand it a list of movies and shows with a link to each file and rex shows them in every Plex app with posters and seasons. When you press play it streams straight from that link.</p>
 
       <div class="hu">
-        <p><span class="hu-k">No scanning</span> A new title shows up in your library the moment it lands on that list. rex never reads a file to find out what it is.</p>
+        <p><span class="hu-k">Instant</span> A new title shows up in every Plex app the moment it lands on that list. Nothing to scan and nothing to download first.</p>
         <a class="hu-link" href="#speed">How fast it feels on a real library &rarr;</a>
       </div>
 
@@ -118,20 +118,17 @@
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
           <h3>It looks like any other server.</h3>
-          <p>Once you add it to your account it shows up in the apps next to your other servers. Movies and shows get posters and summaries and cast and seasons. Watched state and Continue Watching and playlists and collections and edits and Fix Match all work and survive a restart. Each file starts on the audio and subtitle languages your Plex account asks for. Search Subtitles checks the subtitle you pick against a text subtitle in the file or against its sound when FFmpeg is set up. It fixes the timing when it is off. Movie editions and the full server Dashboard also work with a free claiming account.</p>
-          <p class="note" style="margin-top:auto;padding-top:6px">Apps on your home network also find it on their own through Plex's LAN discovery. That is on by default when it uses port 32400.</p>
+          <p>Add it to your Plex account and it shows up in every Plex app next to any other server. Movies and shows get posters and summaries and seasons. Watch history and Continue Watching and collections all work. A subtitle you pick gets its timing fixed when it is off.</p>
         </div>
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5"/></svg>
-          <h3>Many sources. One library.</h3>
-          <p>Each source sends rex the files it has and keeps it up to date. rex-stremio and zurg do this for you and anything that can run ffprobe can do it too. Your debrid accounts and your Stremio addons end up in one Movies and one TV library.</p>
-          <p class="note" style="margin-top:auto;padding-top:6px">The same film from two sources becomes one title with two versions once both are matched.</p>
+          <h3>Many lists. One library.</h3>
+          <p>The lists can come from your Stremio addons or your debrid accounts or files on a web server of your own. They all end up in one Movies and one TV library. The same film from two of them becomes one title with two versions once both are matched.</p>
         </div>
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l15-9L5 3Z"/></svg>
-          <h3>It streams straight from the source.</h3>
-          <p>When you press play rex reads the file from where it lives and hands it on. Nothing is downloaded first. Files play in their original quality. Signed in as the account that owns rex you can delete a title in the app and it is deleted at its source too.</p>
-          <p class="note" style="margin-top:auto;padding-top:6px">Install jellyfin-ffmpeg and rex finds it and also converts what a device cannot play. With a graphics chip a converted 1080p film starts in about 2 seconds even on a small Intel box.</p>
+          <h3>It plays straight from the link.</h3>
+          <p>When you press play rex streams the file from its link in its original quality. Nothing is downloaded first. Install jellyfin-ffmpeg and rex also converts what a device cannot play. On a small Intel box with a graphics chip a converted 1080p film starts in about 2 seconds.</p>
         </div>
       </div>
     </div>
@@ -160,13 +157,13 @@
         </figure>
         <figure class="shot-fig">
           <img class="shot" src="shot-season.webp" width="2400" height="1500" loading="lazy" alt="Season page for The Beverly Hillbillies season 1 with cast">
-          <figcaption class="shot-cap"><b>Shows come in seasons.</b> Each episode sits where its source placed it and On Deck knows where you stopped.</figcaption>
+          <figcaption class="shot-cap"><b>Shows come in seasons.</b> Each episode sits in its season and On Deck knows where you stopped.</figcaption>
         </figure>
       </div>
 
       <figure class="shot-fig">
         <img class="shot" src="shot-player.webp" width="2400" height="1500" loading="lazy" alt="Night of the Living Dead playing in the web app player">
-        <figcaption class="shot-cap"><b>Press play.</b> The file streams straight from its source in its original quality.</figcaption>
+        <figcaption class="shot-cap"><b>Press play.</b> The file streams straight from its link in its original quality.</figcaption>
       </figure>
     </div>
   </section>
@@ -216,20 +213,20 @@
           <p>Music and photo libraries stay empty. rex has no tuner and no DVR though an addon can bring live channels.</p>
         </div>
         <div class="card rec">
-          <div class="rec-h"><h3>A server is not a subscription.</h3></div>
-          <p>Plex Web plays away from home with free claiming and viewing accounts. Other apps have not been tested away from home on free accounts. Converting video needs no pass.</p>
+          <div class="rec-h"><h3>No Plex Pass. Tested in the web app.</h3></div>
+          <p>Watching away from home works in the Plex web app with free Plex accounts on both sides. Other apps have not been tested away from home on free accounts. Converting video needs no Plex Pass either.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Offline downloads lose text subtitles.</h3></div>
-          <p>A file that plays as it is keeps its subtitles. When rex converts an MKV or MP4 the subtitle you picked comes along. The Plex apps for Android and iOS get a text subtitle as a track and every other app gets it drawn into the picture. Lines too dense to read in time such as an opening song's karaoke can be left out the first time. A subtitle you uploaded comes along too. A download for offline viewing still leaves text subtitles out.</p>
+          <p>Streaming keeps your subtitles even when rex converts the video. Android and iOS get a text subtitle as a track and other apps get it drawn into the picture. A download for offline viewing leaves text subtitles out.</p>
         </div>
         <div class="card rec">
-          <div class="rec-h"><h3>It needs a source that probes.</h3></div>
-          <p>Sources send container and stream details before a title appears. A big library can take a source a few hours the first time. Optional FFmpeg analysis reads source media and stores generated images locally. Downloads also use local storage.</p>
+          <div class="rec-h"><h3>Each file needs its details first.</h3></div>
+          <p>Whatever fills rex sends what is inside each file before its title appears. A big library can take a few hours the first time. Thumbnails and offline downloads do use some disk on the rex machine.</p>
         </div>
         <div class="card rec">
-          <div class="rec-h"><h3>Outside your home needs your own address.</h3></div>
-          <p>The web app only connects over HTTPS even at home and rex has no relay. rex-direct gives it one with a single port forward. One Plex account can hold up to ten rex-direct names. Or give it a certificate for a hostname you own. Without a public IP at home use Tailscale or a small VPS that forwards to rex. Skip tunnels that cap bandwidth and keep a Cloudflare tunnel out of the way because it makes every play start read the whole file.</p>
+          <div class="rec-h"><h3>Away from home needs its own address.</h3></div>
+          <p>Apps at home need nothing. Away from home and in the web app rex needs an HTTPS address because it has no relay. rex-direct gives it one with a single port forward. Without a public IP at home use Tailscale or a small VPS. Avoid a Cloudflare tunnel and tunnels that cap bandwidth.</p>
         </div>
       </div>
     </div>
@@ -257,14 +254,14 @@
           </div>
         </div>
         <div class="card plan">
-          <div class="plan-h"><span class="t" style="color:var(--muted)">zurg nightly</span><span class="badge badge-off">Sponsors</span></div>
+          <div class="plan-h"><span class="t" style="color:var(--muted)">rex-stremio</span><span class="badge badge-on">Free</span></div>
           <div class="flist">
-            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">A source for rex from a debrid library</span></div>
+            <div class="fitem"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#17bf63" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg><span style="color:var(--muted)">Fills rex from your Stremio addons</span></div>
           </div>
           <div class="plan-cta">
-            <a class="btn btn-ghost" href="https://gatekeeper.debridmediamanager.com/">Sponsor zurg</a>
+            <a class="btn btn-ghost" href="https://notes.debridmediamanager.com/rex/stremio/">The guide</a>
           </div>
-          <p class="note">rex works with any source. <a href="https://github.com/debridmediamanager/rex-stremio">rex-stremio</a> brings your Stremio addons and is free. <a href="https://notes.debridmediamanager.com/rex/stremio/">The guide</a> shows how.</p>
+          <p class="note">Anything that can hand rex a list of files can fill it. <a href="https://zurg.debridmediamanager.com/">zurg</a> does it for a debrid or Usenet library and is a perk for <a href="https://gatekeeper.debridmediamanager.com/">DMM sponsors</a>.</p>
         </div>
       </div>
     </div>
