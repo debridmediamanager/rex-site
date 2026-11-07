@@ -210,7 +210,7 @@
       <div class="g3">
         <div class="card rec">
           <div class="rec-h"><h3>Music and Live TV come from addons.</h3></div>
-          <p>An addon can bring albums that play in Plexamp. rex-live-sports brings live channels with their guide. Nothing records as rex has no DVR. Music has no radio or mixes and photo libraries stay empty.</p>
+          <p>An addon can bring albums that play in Plexamp. rex-live-sports brings live channels with their guide. Nothing records as rex has no DVR. Music has no radio or mixes. Photos come only from a source that sends pictures such as comic books from zurg and play in the web app.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>No Plex Pass. Tested in the web app.</h3></div>
@@ -281,10 +281,10 @@
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
           <li><span><a href="https://github.com/debridmediamanager/rex/releases">Download the newest build</a> for your machine and unpack it. Linux needs glibc 2.35 or newer. On Linux you can also run the <a href="https://notes.debridmediamanager.com/rex/any-source/#run-rex-in-docker">Docker image</a> instead.</span></li>
-          <li><span>Start rex. It makes an empty movie and TV library.</span></li>
+          <li><span>Start rex. It makes an empty movie and TV library. With Plex Media Server on the same machine start it with <span class="mono">--port 32500</span> and use that port wherever a command says 32400.</span></li>
           <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. At your own risk.</span></li>
           <li><span>Point a source at rex. Give it rex's LAN IP and it registers itself. For zurg that goes in its config and the addon tutorials show where it goes in yours.</span></li>
-          <li><span>Forward port 32400 to rex to watch away from home over its own HTTPS address. With no public IPv4 but IPv6 let it in over IPv6 instead. The web app at home needs no port forward.</span></li>
+          <li><span>Forward port 32400 to rex to watch away from home over its own HTTPS address. With no public IPv4 but IPv6 let it in over IPv6 instead. At home the web app uses rex-direct's home address with no port forward.</span></li>
           <li><span>Coming from Plex? <a href="https://notes.debridmediamanager.com/rex/import-watched/">Bring your watch history</a> with what you watched and rated and where you stopped.</span></li>
         </ol>
         <p class="note">Each guide has every step. The ones for <a href="https://notes.debridmediamanager.com/rex/any-source/">your own app</a> and <a href="https://notes.debridmediamanager.com/rex/with-zurg/">zurg</a> also cover IPv6 and Tailscale and a VPS and the one for <a href="https://notes.debridmediamanager.com/rex/addons/">building an addon</a> builds on them. Use rex nightly 2026.10.25 or newer and 2026.11.08 or newer for IPv6. A zurg that feeds it needs zurg nightly 2026.10.27 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
