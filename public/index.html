@@ -226,7 +226,7 @@
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Away from home needs its own address.</h3></div>
-          <p>Apps at home need nothing. Away from home and in the web app rex needs an HTTPS address because it has no relay. rex-direct gives it one with a single port forward. With no public IPv4 but IPv6 it works over IPv6 with a firewall rule instead and viewers need IPv6 too. Otherwise use Tailscale or a small VPS. Avoid a Cloudflare tunnel and tunnels that cap bandwidth.</p>
+          <p>Apps at home need nothing. Away from home rex needs an HTTPS address because it has no relay. rex-direct gives it one with a single port forward. With no public IPv4 but IPv6 it works over IPv6 with a firewall rule instead and viewers need IPv6 too. Otherwise use Tailscale or a small VPS. Avoid a Cloudflare tunnel and tunnels that cap bandwidth.</p>
         </div>
         <div class="card rec" id="redirect-risks">
           <div class="rec-h"><h3>Keep shared debrid playback proxied.</h3></div>
@@ -284,7 +284,7 @@
           <li><span>Start rex. It makes an empty movie and TV library.</span></li>
           <li><span>Claim it on a fresh free Plex account with a code from <a href="https://www.plex.tv/claim">plex.tv/claim</a> and share it with your own account. At your own risk.</span></li>
           <li><span>Point a source at rex. Give it rex's LAN IP and it registers itself. For zurg that goes in its config and the addon tutorials show where it goes in yours.</span></li>
-          <li><span>Forward port 32400 to rex to use its own HTTPS address. With no public IPv4 but IPv6 let it in over IPv6 instead. The web app needs it even at home.</span></li>
+          <li><span>Forward port 32400 to rex to watch away from home over its own HTTPS address. With no public IPv4 but IPv6 let it in over IPv6 instead. The web app at home needs no port forward.</span></li>
           <li><span>Coming from Plex? <a href="https://notes.debridmediamanager.com/rex/import-watched/">Bring your watch history</a> with what you watched and rated and where you stopped.</span></li>
         </ol>
         <p class="note">Each guide has every step. The ones for <a href="https://notes.debridmediamanager.com/rex/any-source/">your own app</a> and <a href="https://notes.debridmediamanager.com/rex/with-zurg/">zurg</a> also cover IPv6 and Tailscale and a VPS and the one for <a href="https://notes.debridmediamanager.com/rex/addons/">building an addon</a> builds on them. Use rex nightly 2026.10.25 or newer and 2026.11.08 or newer for IPv6. A zurg that feeds it needs zurg nightly 2026.10.27 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
@@ -316,7 +316,7 @@ New-NetFirewallRule -DisplayName "rex discovery" -Protocol UDP -LocalPort 32410,
           </div>
           <div class="cmd"><div class="cmd-top"><p class="cmd-h"># for zurg add this to its config.yml and restart it</p><button type="button" class="copy">Copy</button></div><pre tabindex="0"><code><span class="c2">rex_url</span>: http://&lt;rex's LAN IP&gt;:32400
 <span class="c2">dmm_api_key</span>: &lt;your DMM API key&gt;   <span class="c5"># optional</span></code></pre></div>
-          <p class="cmd-h"># then forward port 32400 to rex or let it in over IPv6</p>
+          <p class="cmd-h"># then forward port 32400 to rex or let it in over IPv6 to watch away from home</p>
         </div>
       </div>
     </div>
