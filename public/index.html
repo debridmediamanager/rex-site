@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#101720">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>rex. A Plex compatible server with no movies on it.</title>
-<meta name="description" content="rex is a server for the Plex apps that keeps no movies. Hand it a list of movies and shows with a link to each file and every Plex app plays them with posters and seasons and watch history. rex is free for personal use.">
+<meta name="description" content="rex is a server for every Plex app that keeps no files. Give it a list of files and it shows a library with posters seasons and watch history. rex is free for personal use.">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/logo.svg">
@@ -85,10 +85,10 @@
     <div class="hero-copy">
       <p class="eyebrow">Plex compatible &middot; Keeps no movies &middot; Free for personal use</p>
       <h1>Every Plex app.<br><span style="color:var(--accent)">No hard&nbsp;drives.</span></h1>
-      <p class="lede">Every Plex app needs a server behind it and usually that server keeps all your movies on its hard drives. rex keeps none. You hand it a list of movies and shows with a link to each file and rex shows them in every Plex app with posters and seasons. When you press play it streams straight from that link.</p>
+      <p class="lede">Every Plex app needs a server. Most servers keep your movies on their disks. rex keeps none. Give it a list of movies and shows with a link to each file. It shows them in every Plex app with posters and seasons. Press play and it streams from that link.</p>
 
       <div class="hu">
-        <p><span class="hu-k">Instant</span> A new title shows up in every Plex app the moment it lands on that list. Nothing to scan and nothing to download first.</p>
+        <p><span class="hu-k">Instant</span> A new title appears in every Plex app as soon as its source adds it. Nothing to scan and nothing to download first.</p>
         <a class="hu-link" href="#speed">How fast it feels on a real library &rarr;</a>
       </div>
 
@@ -99,7 +99,7 @@
         </a>
       </div>
 
-      <p class="note" style="max-width:470px">rex is free for personal use and its <a href="https://github.com/debridmediamanager/rex">source code</a> is public. Every build is out the day it is made.</p>
+      <p class="note" style="max-width:470px">rex is free for personal use. Its <a href="https://github.com/debridmediamanager/rex">source code</a> is public and every build ships the day it is made.</p>
     </div>
 
     <div class="glass" style="overflow:hidden;align-self:start;padding:10px">
@@ -118,17 +118,17 @@
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
           <h3>It looks like any other server.</h3>
-          <p>Add it to your Plex account and it shows up in every Plex app next to any other server. Movies and shows get posters and summaries and seasons. Watch history and Continue Watching and collections all work. A subtitle you pick gets its timing fixed when it is off.</p>
+          <p>Add it to your Plex account and it appears in every Plex app. Movies and shows get posters and summaries and seasons. Watch history and Continue Watching and collections work. rex can fix a subtitle's timing when it is off.</p>
         </div>
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5"/></svg>
           <h3>Many lists. One library.</h3>
-          <p>The lists can come from addons you write or your debrid accounts or files on a web server of your own. They all end up in one Movies and one TV library. The same film from two of them becomes one title with two versions once both are matched.</p>
+          <p>Lists can come from your addons or debrid accounts or a web server of your own. The same film from two sources becomes one title with two versions once both are matched.</p>
         </div>
         <div class="card feat">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff9a62" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l15-9L5 3Z"/></svg>
           <h3>It plays straight from the link.</h3>
-          <p>When you press play rex streams the file from its link in its original quality. Nothing is downloaded first. Install jellyfin-ffmpeg and rex also converts what a device cannot play. On a small Intel box with a graphics chip a converted 1080p film starts in about 2 seconds.</p>
+          <p>Press play and rex streams the file from its link in its original quality. Nothing is downloaded first. Install jellyfin-ffmpeg and rex can convert what a device cannot play. On a small Intel box with a graphics chip a converted 1080p film starts in about 2 seconds.</p>
         </div>
       </div>
     </div>
@@ -142,7 +142,7 @@
           <p class="sec-label">02 / Screens</p>
           <h2>What you see<br>in the apps.</h2>
         </div>
-        <p class="note">Real screenshots of rex in the official web app. The library is public domain films and open movies streamed from a plain web server. Nothing is touched up.</p>
+        <p class="note">Real screenshots from the official web app. The library uses public domain films and open movies from a plain web server. Nothing is edited.</p>
       </div>
 
       <figure class="shot-fig">
@@ -194,7 +194,7 @@
           </div>
         </div>
         <hr class="rule">
-        <p class="note">Measured in October 2026 on a laptop with an eight core processor. The library was a real one with 4062 movies and 656 shows holding 34678 episodes. Each figure is the middle of seven runs of the official web app in Chrome on the same machine with a fresh browser every run. Your own times depend on your machine and your connection. rex used about 730 MB of memory during the run and under 500 MB while it started.</p>
+        <p class="note">Measured in October 2026 on a laptop with an eight core processor. The library had 4062 movies and 656 shows with 34678 episodes. Each figure is the middle of seven fresh Chrome runs on the same machine. Your times depend on your machine and connection. rex used about 730 MB while browsing and under 500 MB while starting.</p>
       </div>
     </div>
   </section>
@@ -210,27 +210,27 @@
       <div class="g3">
         <div class="card rec">
           <div class="rec-h"><h3>Music and Live TV come from addons.</h3></div>
-          <p>An addon can bring albums that play in Plexamp. rex-live-sports brings live channels with their guide. Nothing records as rex has no DVR. Music has no radio or mixes. Photos come only from a source that sends pictures such as comic books from zurg and play in the web app.</p>
+          <p>An addon can bring albums for Plexamp. rex-live-sports brings live channels with their guide. Nothing records because rex has no DVR. Music has no radio or mixes. Photos need a source that sends pictures such as zurg comic books. They play in the web app.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>No Plex Pass. Tested in the web app.</h3></div>
-          <p>Watching away from home works in the Plex web app with free Plex accounts on both sides. Other apps have not been tested away from home on free accounts. Converting video needs no Plex Pass either.</p>
+          <p>Watching away from home works in the Plex web app with free Plex accounts on both sides. Other apps have not been tested away from home on free accounts. Video conversion also needs no Plex Pass.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Offline downloads lose text subtitles.</h3></div>
-          <p>Streaming keeps your subtitles even when rex converts the video. Android and iOS get a text subtitle as a track and other apps get it drawn into the picture. A download for offline viewing leaves text subtitles out.</p>
+          <p>Streaming keeps subtitles when rex converts video. Android and iOS get a text subtitle track. Other apps get it drawn into the picture. Offline downloads leave text subtitles out.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Each file needs its details first.</h3></div>
-          <p>Whatever fills rex sends what is inside each file before its title appears. A big library can take a few hours the first time. Thumbnails and offline downloads do use some disk on the rex machine.</p>
+          <p>Each source sends file details before a title appears. A big library can take a few hours the first time. Thumbnails and offline downloads use some disk on the rex machine.</p>
         </div>
         <div class="card rec">
           <div class="rec-h"><h3>Away from home needs its own address.</h3></div>
-          <p>Apps at home need nothing. Away from home rex needs an HTTPS address because it has no relay. rex-direct gives it one with a single port forward. With no public IPv4 but IPv6 it works over IPv6 with a firewall rule instead and viewers need IPv6 too. Otherwise use Tailscale or a small VPS. Avoid a Cloudflare tunnel and tunnels that cap bandwidth.</p>
+          <p>Apps at home need nothing. Away from home rex needs its own HTTPS address because it has no relay. rex-direct gives it one with a single port forward. With no public IPv4 but IPv6 it works over IPv6 with a firewall rule instead and viewers need IPv6 too. Otherwise use Tailscale or a small VPS. Avoid a Cloudflare tunnel and tunnels that cap bandwidth.</p>
         </div>
         <div class="card rec" id="redirect-risks">
           <div class="rec-h"><h3>Keep shared debrid playback proxied.</h3></div>
-          <p>Keep the default proxy mode. Real-Debrid tracks each downloader's public IP. Multi-IP use of one account earns a sharing warning even when downloads succeed. TorBox download URLs contain the full API key. Redirecting gives every client and shared user account access including deletion. <a href="https://notes.debridmediamanager.com/rex/direct-download/#before-you-start">Read before enabling redirects.</a></p>
+          <p>Keep the default proxy mode. Real-Debrid tracks each downloader's public IP. One account used from several IPs can earn a sharing warning even when downloads work. TorBox download URLs contain the full API key. Redirecting gives every client and shared user access including deletion. <a href="https://notes.debridmediamanager.com/rex/direct-download/#before-you-start">Read before enabling redirects.</a></p>
         </div>
       </div>
     </div>
@@ -242,7 +242,7 @@
       <div class="sec-head" style="max-width:760px">
         <p class="sec-label">05 / Access</p>
         <h2>Free for personal use.<br>Source available.</h2>
-        <p class="lede">rex and its source code are public under the PolyForm Noncommercial license. Personal use is free and commercial use is not allowed. There is no paid tier and no waiting period. Every build is public the day it is made.</p>
+        <p class="lede">rex and its source code are public under the PolyForm Noncommercial license. Personal use is free and commercial use is not allowed. There is no paid tier or waiting period. Every build is public the day it is made.</p>
       </div>
       <div class="access">
         <div class="glass plan" style="border-color:rgba(255,154,98,.40);box-shadow:0 24px 70px rgba(255,154,98,.14)">
