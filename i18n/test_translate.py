@@ -43,6 +43,18 @@ page = ('<div><p>Read <code>config.yml</code> first</p><a href="/x">Loose link</
 seg = T.Segments(page)
 assert [page[a:b] for a, b in seg.blocks] == ["Read <code>config.yml</code> first", "Loose link"]
 assert [k for _, _, k in seg.attrs] == ["alt"]
+# Links point at the URL Pages serves: /x.html answers with a 308 to /x.
+assert T.served_href("/download.html#linux") == "/download#linux"
+assert T.served_href("../jellyfin/index.html") == "../jellyfin/"
+assert T.served_href("android.html") == "android"
+assert T.served_href("https://zurg.debridmediamanager.com/download.html") == "https://zurg.debridmediamanager.com/download"
+assert T.served_href("https://example.com/a.html") == "https://example.com/a.html"
+assert T.served_href("/install.sh") == "/install.sh" and T.served_href("#top") == "#top"
+out = T.html_page(None, '<html lang="en"><head></head><body><a href="/download.html">x</a></body></html>', "index.html", "h")
+assert 'href="/download"' in out and 'href="/download.html"' not in out
+nf = T.html_page(None, "<html><head></head><body></body></html>", "404.html", "h")
+assert "hreflang" not in nf.split("</head>")[0] and 'href="/de/"' in nf and "/404" not in nf
+
 # seo(): every page names its translations, one sitemap lists all of them, served URLs only (no .html).
 import tempfile
 with tempfile.TemporaryDirectory() as site:

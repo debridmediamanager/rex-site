@@ -485,12 +485,23 @@ def pretty(page):
     return "/" + re.sub(r"\.html$", "", re.sub(r"(^|/)index\.html$", r"\1", page))
 
 
+def served_href(value):
+    """A link to one of our pages as the URL Pages serves (x.html answers with a 308 to x)."""
+    if re.match(r"^[a-z]+:", value) and not re.match(r"^https://(" + "|".join(map(re.escape, FAMILY)) + r")/", value):
+        return value
+    path, rest = re.match(r"^([^?#]*)(.*)$", value).groups()
+    path = re.sub(r"(^|/)index\.html$", r"\1", path)
+    return re.sub(r"\.html$", "", path) + rest if path.endswith(".html") else path + rest
+
+
 def lang_bar(page, host):
-    url = pretty(page)
+    missing = page.endswith("404.html")  # a not-found page: no translations to name, switch to each home page
+    url = "/" if missing else pretty(page)
     links = " · ".join(f'<a href="{"" if c == "en" else "/" + c}{url}" hreflang="{c}" lang="{c}">{n}</a>'
                        for c, n in [ENGLISH] + [(c, v[1]) for c, v in LANGS.items()])
-    alt = "".join(f'<link rel="alternate" hreflang="{c}" href="https://{host}{"" if c == "en" else "/" + c}{url}">'
-                  for c in ["en"] + list(LANGS)) + f'<link rel="alternate" hreflang="x-default" href="https://{host}{url}">'
+    alt = "" if missing else "".join(
+        f'<link rel="alternate" hreflang="{c}" href="https://{host}{"" if c == "en" else "/" + c}{url}">'
+        for c in ["en"] + list(LANGS)) + f'<link rel="alternate" hreflang="x-default" href="https://{host}{url}">'
     bar = ('<nav class="i18n-langs" aria-label="Language" style="text-align:center;padding:18px 16px 28px;'
            f'font-size:13px;line-height:2;opacity:.75">{links}</nav>')
     style = ('<style>[dir=rtl] pre,[dir=rtl] code,[dir=rtl] .mono{direction:ltr;unicode-bidi:isolate}'
@@ -518,6 +529,7 @@ def html_page(tr, text, page, host):
         out = re.sub(r'(\s(?:href|src)=")([^"]*)(")', lambda m: m.group(1) + page_link(m.group(2), page, tr.lang) + m.group(3), out)
         out = re.sub(r'(<meta[^>]+property="og:url"[^>]+content=")([^"]*)', lambda m: m.group(1) + family_link(m.group(2), tr.lang), out)
         out = re.sub(r"<html([^>]*?)\slang=\"en\"", lambda m: f'<html{m.group(1)} lang="{tr.lang}"' + (' dir="rtl"' if tr.lang == "ar" else ""), out, count=1)
+    out = re.sub(r'(<a\s[^>]*?href=")([^"]*)(")', lambda m: m.group(1) + served_href(m.group(2)) + m.group(3), out)
     head, bar = lang_bar(page, host)
     out = out.replace("</head>", head + "</head>", 1)
     out = out.replace("</footer>", bar + "</footer>", 1) if "</footer>" in out else out.replace("</body>", bar + "</body>", 1)
