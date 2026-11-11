@@ -1,0 +1,70 @@
+name: publish
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/**'
+      - 'i18n/*.py'
+      - '.github/workflows/publish.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Translator self-test
+        run: python3 i18n/test_translate.py
+
+      # English stays in public/. dist/ gets public/ plus a translated copy of every page under /<lang>/.
+      # Only text that changed is sent to OpenRouter. Text that cannot be translated stays English for now
+      # (exit 3, a warning); if OpenRouter itself fails (exit 4) the cached site still ships and the run fails.
+      - name: Translate
+        id: translate
+        env:
+          OPENROUTER_TRANSLATE_KEY: ${{ secrets.OPENROUTER_TRANSLATE_KEY }}
+        run: |
+          python3 i18n/translate.py html --src public --out dist --host rex.debridmediamanager.com || code=$?
+          echo "code=${code:-0}" >> "$GITHUB_OUTPUT"
+          [ "${code:-0}" -eq 0 ] || [ "${code:-0}" -ge 3 ]
+
+      - name: Keep the translations
+        run: |
+          git add i18n/cache
+          git diff --cached --quiet && exit 0
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "chore: translations for ${GITHUB_SHA::8}"
+          for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0; sleep 5; done
+          exit 1
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        # wrangler 4.151 turns `pages` commands into a Workers deploy; 4.40.0 still deploys Pages.
+        run: npx --yes wrangler@4.40.0 pages deploy dist --project-name=rex --branch=main --commit-dirty=true
+
+      # The zone cache keeps serving the previous build on bare URLs until it is purged.
+      - name: Purge the edge cache
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${{ vars.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+            --data '{"hosts":["rex.debridmediamanager.com"]}' | jq -e .success
+
+      - name: Report text left in English
+        if: steps.translate.outputs.code == '3' || steps.translate.outputs.code == '4'
+        run: |
+          if [ "${{ steps.translate.outputs.code }}" = 4 ]; then
+            echo "::error::OpenRouter failed (key, monthly limit or outage). The site shipped with cached translations only."
+            exit 1
+          fi
+          echo "::warning::Some text could not be translated and was published in English. It is tried again on the next push."

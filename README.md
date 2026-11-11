@@ -4,8 +4,8 @@ Source for **[rex.debridmediamanager.com](https://rex.debridmediamanager.com/)**
 landing page for rex.
 
 One hand-written `public/index.html` on the shared `site.css` from
-[zurg-site](https://github.com/debridmediamanager/zurg-site). No framework and no build
-step. `public/` holds exactly what ships.
+[zurg-site](https://github.com/debridmediamanager/zurg-site). No framework. `public/` is the
+English site; what ships is `dist/`, which adds a translated copy under `/<lang>/` (see Translations).
 
 - Copy uses no commas, colons or em dashes, names no competitors and keeps Plex mentions
   to what describes compatibility.
@@ -18,8 +18,21 @@ step. `public/` holds exactly what ships.
   `docs/setup.md` and the notes guides `rex/with-zurg.md` and `rex/any-source.md`, in
   the same task. rex's CLAUDE.md lists all five.
 
-`./deploy.sh` publishes Cloudflare Pages project `rex`. Verify with a cache-busted URL
+A push to `main` that touches `public/` deploys to Cloudflare Pages project `rex` and purges the edge
+cache; `./deploy.sh` does the same by hand. Verify with a cache-busted URL
 (`?cb=1`); the zone cache can keep the bare URL stale after a deploy.
+
+
+## Translations
+
+Write English only. Every push to `main` translates what changed into Chinese, Spanish, Arabic, Indonesian,
+Portuguese, French, Japanese, Russian and German with `i18n/translate.py` (OpenRouter, repository secret
+`OPENROUTER_TRANSLATE_KEY`) and publishes each language under `/<lang>/`. Translations are cached in
+`i18n/cache/` by a hash of the English text, so only changed text costs anything; the workflow commits the cache
+back as `chore: translations for …`. Do not edit the cache by hand: change the English and the next push
+translates it again. Text whose translation fails the checks (code, links, tables or markup changed) is published in
+English and tried again on the next push (a warning on the run). If OpenRouter fails (key, monthly limit) the run goes red. The same `translate.py` lives in notes, zurg-site and rex-site; change it in one and copy it
+to the other two.
 
 ---
 
