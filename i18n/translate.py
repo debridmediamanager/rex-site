@@ -29,6 +29,8 @@ LANGS = {  # code: (name for the model, name in the language switcher)
     "de": ("German", "Deutsch"),
 }
 ENGLISH = ("en", "English")
+OG_LOCALE = {"zh": "zh_CN", "es": "es_ES", "ar": "ar_AR", "id": "id_ID", "pt": "pt_BR", "fr": "fr_FR",
+             "ja": "ja_JP", "ru": "ru_RU", "de": "de_DE"}
 FAMILY = ("notes.debridmediamanager.com", "zurg.debridmediamanager.com", "rex.debridmediamanager.com")
 MODEL = os.environ.get("TRANSLATE_MODEL", "anthropic/claude-haiku-5.5")
 VERSION = "1"  # bump to translate everything again (prompt or rules changed)
@@ -528,6 +530,9 @@ def html_page(tr, text, page, host):
     if tr:
         out = re.sub(r'(\s(?:href|src)=")([^"]*)(")', lambda m: m.group(1) + page_link(m.group(2), page, tr.lang) + m.group(3), out)
         out = re.sub(r'(<meta[^>]+property="og:url"[^>]+content=")([^"]*)', lambda m: m.group(1) + family_link(m.group(2), tr.lang), out)
+        # link previews (Facebook, Discord, LinkedIn) read the page's language from og:locale
+        loc = f'<meta property="og:locale" content="{OG_LOCALE[tr.lang]}">'
+        out = re.sub(r'<meta property="og:locale"[^>]*>', loc, out) if 'property="og:locale"' in out else out.replace("</head>", loc + "</head>", 1)
         out = re.sub(r"<html([^>]*?)\slang=\"en\"", lambda m: f'<html{m.group(1)} lang="{tr.lang}"' + (' dir="rtl"' if tr.lang == "ar" else ""), out, count=1)
     out = re.sub(r'(<a\s[^>]*?href=")([^"]*)(")', lambda m: m.group(1) + served_href(m.group(2)) + m.group(3), out)
     head, bar = lang_bar(page, host)

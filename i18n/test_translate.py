@@ -55,6 +55,10 @@ assert 'href="/download"' in out and 'href="/download.html"' not in out
 nf = T.html_page(None, "<html><head></head><body></body></html>", "404.html", "h")
 assert "hreflang" not in nf.split("</head>")[0] and 'href="/de/"' in nf and "/404" not in nf
 
+tr = T.Translator("pt"); tr.key = None  # offline: no API calls, cached text only
+pt = T.html_page(tr, '<html lang="en"><head><meta property="og:type" content="website"></head><body></body></html>', "index.html", "h")
+assert '<meta property="og:locale" content="pt_BR">' in pt and 'lang="pt"' in pt
+
 # seo(): every page names its translations, one sitemap lists all of them, served URLs only (no .html).
 import tempfile
 with tempfile.TemporaryDirectory() as site:
