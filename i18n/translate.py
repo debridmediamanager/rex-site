@@ -5,6 +5,7 @@ The same file is in notes, zurg-site and rex-site (i18n/translate.py). Change it
 
     translate.py md   --src .      --out build/i18n   Markdown pages (notes): one translated tree per language
     translate.py html --src public --out dist         static HTML (zurg-site, rex-site): public/ plus /<lang>/ copies
+    translate.py seo  --site .retype --host notes.…   after a build: hreflang on every page, one sitemap for all languages
 
 Every English piece (a Markdown section, an HTML text block, an attribute) is translated once and kept in
 i18n/cache/<lang>.json under a hash of its text, so a push only pays for the pieces it changed. Without
@@ -479,8 +480,13 @@ def page_link(value, page, lang):
     return value
 
 
+def pretty(page):
+    """The URL a page is served at: Pages answers /x.html with a redirect to /x, and Google wants the final URL."""
+    return "/" + re.sub(r"\.html$", "", re.sub(r"(^|/)index\.html$", r"\1", page))
+
+
 def lang_bar(page, host):
-    url = "/" + re.sub(r"(^|/)index\.html$", r"\1", page)
+    url = pretty(page)
     links = " · ".join(f'<a href="{"" if c == "en" else "/" + c}{url}" hreflang="{c}" lang="{c}">{n}</a>'
                        for c, n in [ENGLISH] + [(c, v[1]) for c, v in LANGS.items()])
     alt = "".join(f'<link rel="alternate" hreflang="{c}" href="https://{host}{"" if c == "en" else "/" + c}{url}">'
@@ -534,18 +540,66 @@ def run_html(src, out, langs, host):
         print(f"{lang}: {len(pages)} pages, {tr.sent} requests, {tr.failed} left English", file=sys.stderr)
         return tr
     with cf.ThreadPoolExecutor(len(langs) or 1) as ex:
-        return list(ex.map(one, langs))
+        done = list(ex.map(one, langs))
+    seo(out, host, langs)
+    return done
+
+
+# ---------------------------------------------------------------- search engines
+
+def seo(site, host, langs):
+    """For a built site: every page names its translations (hreflang), and one sitemap lists every page in
+    every language, so search engines find each language and show the reader's own."""
+    lang_dir = re.compile(rf"^({'|'.join(LANGS)})(/|$)")
+    pages = []
+    for d, _, fs in os.walk(site):
+        for f in fs:
+            rel = os.path.relpath(os.path.join(d, f), site)
+            if not f.endswith(".html") or lang_dir.match(rel) or f == "404.html":
+                continue
+            text = open(os.path.join(site, rel), encoding="utf-8").read()
+            if re.search(r'<meta[^>]+name="robots"[^>]+noindex', text) or re.search(r'http-equiv="refresh"', text):
+                continue
+            pages.append(rel)
+    entries = []
+    for rel in sorted(pages):
+        alts = {"en": f"https://{host}{pretty(rel)}"}
+        for l in langs:
+            if os.path.exists(os.path.join(site, l, rel)):
+                alts[l] = f"https://{host}/{l}{pretty(rel)}"
+        links = "".join(f'<link rel="alternate" hreflang="{l}" href="{u}">' for l, u in alts.items())
+        links += f'<link rel="alternate" hreflang="x-default" href="{alts["en"]}">'
+        for l in alts:
+            path = os.path.join(site, rel) if l == "en" else os.path.join(site, l, rel)
+            text = open(path, encoding="utf-8").read()
+            if 'hreflang="' not in text.split("</head>", 1)[0]:
+                open(path, "w", encoding="utf-8").write(text.replace("</head>", links + "</head>", 1))
+        xl = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{l}" href="{u}"/>' for l, u in alts.items())
+        entries += [f"  <url>\n    <loc>{u}</loc>{xl}\n  </url>" for u in alts.values()]
+    with open(os.path.join(site, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+                'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(entries) + "\n</urlset>\n")
+    robots = os.path.join(site, "robots.txt")
+    have = open(robots, encoding="utf-8").read() if os.path.exists(robots) else "User-agent: *\nAllow: /\n"
+    if f"Sitemap: https://{host}/sitemap.xml" not in have:
+        have = have.rstrip("\n") + f"\n\nSitemap: https://{host}/sitemap.xml\n"
+    open(robots, "w", encoding="utf-8").write(have)
+    print(f"sitemap: {len(pages)} pages, {len(entries)} URLs", file=sys.stderr)
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("mode", choices=["md", "html"])
+    ap.add_argument("mode", choices=["md", "html", "seo"])
     ap.add_argument("--src", default=".")
-    ap.add_argument("--out", required=True)
+    ap.add_argument("--out")
+    ap.add_argument("--site", help="seo mode: the built site")
     ap.add_argument("--host", help="html mode: the site's hostname, for hreflang links")
     ap.add_argument("--langs", default=",".join(LANGS))
     a = ap.parse_args()
     langs = [l for l in a.langs.split(",") if l]
+    if a.mode == "seo":
+        seo(a.site, a.host, langs)
+        sys.exit(0)
     if not os.environ.get("OPENROUTER_TRANSLATE_KEY"):
         print("OPENROUTER_TRANSLATE_KEY is not set: using cached translations only", file=sys.stderr)
     done = run_md(a.src, a.out, langs) if a.mode == "md" else run_html(a.src, a.out, langs, a.host)

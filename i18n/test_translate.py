@@ -43,4 +43,23 @@ page = ('<div><p>Read <code>config.yml</code> first</p><a href="/x">Loose link</
 seg = T.Segments(page)
 assert [page[a:b] for a, b in seg.blocks] == ["Read <code>config.yml</code> first", "Loose link"]
 assert [k for _, _, k in seg.attrs] == ["alt"]
+# seo(): every page names its translations, one sitemap lists all of them, served URLs only (no .html).
+import tempfile
+with tempfile.TemporaryDirectory() as site:
+    def put(rel, text):
+        os.makedirs(os.path.dirname(os.path.join(site, rel)) or site, exist_ok=True)
+        open(os.path.join(site, rel), "w").write(text)
+    page = "<html><head><title>x</title></head><body>x</body></html>"
+    for rel in ("index.html", "download.html", "de/index.html", "de/download.html", "ja/index.html"):
+        put(rel, page)
+    put("old.html", '<html><head><meta http-equiv="refresh" content="0; url=/"></head></html>')
+    T.seo(site, "example.org", ["de", "ja"])
+    sm = open(os.path.join(site, "sitemap.xml")).read()
+    assert sm.count("<loc>") == 5 and "download.html" not in sm and "old" not in sm
+    assert '<loc>https://example.org/de/download</loc>' in sm
+    head = open(os.path.join(site, "ja/index.html")).read()
+    assert 'hreflang="de" href="https://example.org/de/"' in head and 'hreflang="x-default"' in head
+    assert 'hreflang="ja"' not in open(os.path.join(site, "download.html")).read()  # no Japanese download page
+    assert "Sitemap: https://example.org/sitemap.xml" in open(os.path.join(site, "robots.txt")).read()
+
 print("translate.py: all checks pass")
