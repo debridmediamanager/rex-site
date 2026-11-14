@@ -35,6 +35,13 @@ for c in cases:
 assert T.check("Play Pokémon", "Mainkan Pokémon sekarang", "id") is None
 assert T.check("Watch in the Plex apps", "Ver en las apps de Plex", "id")  # a real zurg-site heading
 assert T.check("Watch in the Plex apps", "Tonton di aplikasi Plex", "id") is None
+# The model's own notes ("Wait, I should not wrap in a code fence"), its echo of our retry hint ("An earlier
+# translation was rejected") and a code fence the English does not have are rejected, from the cache too.
+assert "code fences" in T.check("Step one.\n\n⟦C0⟧\n\nDone.", "```\n第一步。\n```\n\n第一步。\n\n⟦C0⟧\n\n完成。", "zh")
+assert T.check("How translations work", "Cara kerja terjemahan (translations)", "id") is None  # the English has it
+note = next(c for c in cases if "Wait, I should not wrap" in c["text"])
+tr = T.Translator(note["lang"]); tr.store("md", note["src"], note["text"])
+assert tr.cached("md", note["src"]) is None
 # Short replies are told by script: zurg-site's Japanese page showed "Kostenlos" for "Free". Kept names pass.
 assert T.check("Free for everyone", "Kostenlos für alle", "ja") and T.check("Free", "Kostenlos", "zh")
 assert T.check("Plex Media Server", "Plex Media Server", "ja") is None and T.check("Free", "無料", "ja") is None

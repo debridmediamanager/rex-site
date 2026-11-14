@@ -79,7 +79,8 @@ class Translator:
 
     def cached(self, kind, text):
         k = self.key_of(kind, text)
-        if k in self.cache and not wrong_language(self.cache[k], self.lang, text):  # else it is asked for again
+        hit = self.cache.get(k)
+        if hit is not None and not wrong_language(hit, self.lang, text) and (kind != "md" or fences(hit) == fences(text)):
             self.used.add(k)
             return self.cache[k]
 
@@ -206,6 +207,10 @@ def retype_slug(heading, seen):
 CODE_SPAN = re.compile(r"(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)")
 
 
+def fences(text):
+    return sum(1 for l in text.split("\n") if l.lstrip().startswith(("```", "~~~")))
+
+
 def shape(text):
     """What a translation must keep: headings, tables, Retype markers, code spans, link targets, placeholders."""
     lines = text.split("\n")
@@ -216,6 +221,7 @@ def shape(text):
         "code spans": sorted(m.group(0) for m in CODE_SPAN.finditer(text)),
         "link targets": sorted(re.findall(r"\]\(([^)\s]+)", text)),
         "placeholders": sorted(re.findall(r"⟦C\d+⟧", text)),
+        "code fences": fences(text),  # the model has wrapped its answer in a fence, then written a note and redone it
     }
 
 
@@ -237,6 +243,9 @@ SCRIPT = {"zh": re.compile(r"[\u4e00-\u9fff]"), "ja": re.compile(r"[\u3040-\u30f
 LATIN_WORD = re.compile(r"[A-Za-zÀ-ÿ]+")
 KANA = SCRIPT["ja"]
 # short Spanish, French and Portuguese words Indonesian never uses ("para" is Indonesian too)
+# the model talking to itself: "Wait, I should not wrap in a code fence. Correct output:"
+CHATTER = re.compile(r"\b(code fence|preamble|correct output|correcting|translat\w*|I should|I need to|let me|here is the|"
+                     r"here's the|the input)\b|^\W*(wait|hmm|oops|ah),", re.I | re.M)
 ROMANCE = re.compile(r"\b(de|la|las|el|los|en|y|que|con|del|por|le|les|du|des|et|em|um|uma)\b", re.I)
 
 
@@ -254,6 +263,9 @@ def wrong_language(out, lang, src=None):
         new = {w.lower() for w in LATIN_WORD.findall(t)} - {w.lower() for w in LATIN_WORD.findall(src)}
         if new:
             return f"not in {LANGS[lang][0]}: {' '.join(sorted(new))[:40]}"
+    for m in CHATTER.finditer(t):
+        if src is None or m.group(0).lower() not in src.lower():
+            return f"the model's own note: {m.group(0)}"
     if lang == "zh" and len(KANA.findall(t)) > 0.2 * len(SCRIPT["zh"].findall(t)) + 2:
         return "Japanese, not Chinese"  # Japanese uses the same characters, plus kana
     if lang == "id" and src is not None:  # Indonesian has no accents: Spanish slipped in with few common words
