@@ -1,0 +1,2 @@
+# Fire TV and TV boxes: type rex.debridmediamanager.com/tv into Downloader for the 32-bit build, which runs on Fire TV and most TV boxes.
+/tv https://github.com/debridmediamanager/rex-android/releases/latest/download/rex-android-armeabi-v7a.apk 302
