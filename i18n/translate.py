@@ -235,6 +235,7 @@ COMMON = {l: (re.compile(rf"\b({'|'.join(w.split())})\b", re.I), re.compile(f"[{
 SCRIPT = {"zh": re.compile(r"[\u4e00-\u9fff]"), "ja": re.compile(r"[\u3040-\u30ff]"),  # ja: kana, not only kanji
           "ar": re.compile(r"[\u0600-\u06ff]"), "ru": re.compile(r"[\u0400-\u04ff]")}
 LATIN_WORD = re.compile(r"[A-Za-zÀ-ÿ]+")
+KANA = SCRIPT["ja"]
 
 
 def language_scores(t):
@@ -251,6 +252,13 @@ def wrong_language(out, lang, src=None):
         new = {w.lower() for w in LATIN_WORD.findall(t)} - {w.lower() for w in LATIN_WORD.findall(src)}
         if new:
             return f"not in {LANGS[lang][0]}: {' '.join(sorted(new))[:40]}"
+    if lang == "zh" and len(KANA.findall(t)) > 0.2 * len(SCRIPT["zh"].findall(t)) + 2:
+        return "Japanese, not Chinese"  # Japanese uses the same characters, plus kana
+    if lang == "id" and src is not None:  # Indonesian has no accents: Spanish slipped in with few common words
+        accented = {w.lower() for w in LATIN_WORD.findall(t) if re.search(r"[À-ÖØ-öø-ÿ]", w)}
+        accented -= {w.lower() for w in LATIN_WORD.findall(src)}
+        if accented or re.search(r"[¿¡]", t):
+            return f"not in Indonesian: {' '.join(sorted(accented))[:40] or '¿ ¡'}"
     if lang in SCRIPT:
         words = re.findall(r"[^\W\d_]+", SCRIPT[lang].sub(" ", t))  # words in any other script
         if len(words) >= 12 and len(SCRIPT[lang].findall(t)) < 0.15 * len(words):

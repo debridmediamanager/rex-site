@@ -29,7 +29,10 @@ assert T.check(src, "") == "empty reply"
 import json
 cases = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures", "wrong_language.json"), encoding="utf-8"))
 for c in cases:
-    assert bool(T.check(c["text"], c["text"], c["lang"])) == c["wrong"], (c["lang"], c["text"][:80])
+    assert bool(T.check(c.get("src", c["text"]), c["text"], c["lang"])) == c["wrong"], (c["lang"], c["text"][:80])
+# Japanese on a Chinese page and Spanish on an Indonesian one (real pairs with their English source above);
+# an accented name the English already has is fine.
+assert T.check("Play Pokémon", "Mainkan Pokémon sekarang", "id") is None
 # Short replies are told by script: zurg-site's Japanese page showed "Kostenlos" for "Free". Kept names pass.
 assert T.check("Free for everyone", "Kostenlos für alle", "ja") and T.check("Free", "Kostenlos", "zh")
 assert T.check("Plex Media Server", "Plex Media Server", "ja") is None and T.check("Free", "無料", "ja") is None
