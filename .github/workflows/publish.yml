@@ -72,7 +72,7 @@ jobs:
           fi
           echo "::warning::Some text could not be translated and was published in English. It is tried again on the next push."
 
-      - name: Tell #platform-alerts
+      - name: Tell platform-alerts on Discord
         if: always()
         env:
           PLATFORM_ALERTS_WEBHOOK: ${{ secrets.PLATFORM_ALERTS_WEBHOOK }}
