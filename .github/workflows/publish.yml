@@ -5,6 +5,7 @@ on:
     paths:
       - 'public/**'
       - 'i18n/*.py'
+      - 'i18n/*.sh'
       - '.github/workflows/publish.yml'
   workflow_dispatch:
 
@@ -31,9 +32,11 @@ jobs:
         env:
           OPENROUTER_TRANSLATE_KEY: ${{ secrets.OPENROUTER_TRANSLATE_KEY }}
         run: |
-          python3 i18n/translate.py html --src public --out dist --host rex.debridmediamanager.com || code=$?
-          echo "code=${code:-0}" >> "$GITHUB_OUTPUT"
-          [ "${code:-0}" -eq 0 ] || [ "${code:-0}" -ge 3 ]
+          set +e
+          python3 i18n/translate.py html --src public --out dist --host rex.debridmediamanager.com 2>&1 | tee "$RUNNER_TEMP/translate.log"
+          code=${PIPESTATUS[0]}
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          [ "$code" -eq 0 ] || [ "$code" -ge 3 ]
 
       - name: Keep the translations
         run: |
@@ -68,3 +71,9 @@ jobs:
             exit 1
           fi
           echo "::warning::Some text could not be translated and was published in English. It is tried again on the next push."
+
+      - name: Tell #platform-alerts
+        if: always()
+        env:
+          PLATFORM_ALERTS_WEBHOOK: ${{ secrets.PLATFORM_ALERTS_WEBHOOK }}
+        run: bash i18n/alert.sh rex-site "${{ steps.translate.outputs.code }}" "${{ job.status }}" "$RUNNER_TEMP/translate.log"
