@@ -204,7 +204,8 @@ def retype_slug(heading, seen):
     return t if n == 0 else f"{t}-{n}"
 
 
-CODE_SPAN = re.compile(r"(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)")
+# a span may wrap onto the next line (not past a blank one); the source has `... Access is\ndenied.`
+CODE_SPAN = re.compile(r"(?<!`)(`+)(?!`)((?:(?!\n[ \t]*\n).)+?)(?<!`)\1(?!`)", re.S)
 
 
 def fences(text):
@@ -218,7 +219,7 @@ def shape(text):
         "headings": [HEADING.match(l).group(1) for l in lines if HEADING.match(l)],
         "table rows": [len(re.findall(r"(?<!\\)\|", CODE_SPAN.sub("", l))) for l in lines if l.lstrip().startswith("|")],
         "markers": [l.strip()[:3] for l in lines if l.strip()[:3] in ("+++", "===", "!!!")],
-        "code spans": sorted(m.group(0) for m in CODE_SPAN.finditer(text)),
+        "code spans": sorted(re.sub(r"\s+", " ", m.group(0)) for m in CODE_SPAN.finditer(text)),
         "link targets": sorted(re.findall(r"\]\(([^)\s]+)", text)),
         "placeholders": sorted(re.findall(r"⟦C\d+⟧", text)),
         "code fences": fences(text),  # the model has wrapped its answer in a fence, then written a note and redone it
@@ -331,6 +332,18 @@ def family_link(url, lang):
     return f"https://{m.group(1)}/{lang}{path}{m.group(3)}"
 
 
+def paragraphs(chunk):
+    """The chunk cut after each blank line outside code blocks; "".join gives it back."""
+    parts, cur, fence = [], "", False
+    for line in chunk.splitlines(keepends=True):
+        if line.lstrip().startswith(("```", "~~~")):
+            fence = not fence
+        cur += line
+        if not fence and not line.strip() and cur.strip():
+            parts.append(cur); cur = ""
+    return parts + [cur] if cur else parts
+
+
 def translate_md_chunk(tr, chunk):
     if not re.search(r"[A-Za-z]", re.sub(r"`[^`]*`", "", protect_code(chunk)[0])):
         return chunk
@@ -352,7 +365,15 @@ def translate_md_chunk(tr, chunk):
             out = lead + restore_code(out.strip("\n"), blocks) + trail
             tr.store("md", chunk, out)
             return out
-        user = f"{masked}\n\n(An earlier translation was rejected: {err}. Keep the structure exactly.)"
+        user = (f"{masked}\n\n(An earlier translation was rejected: {err}. Reply with the {tr.name} translation only, "
+                "without repeating the English, and keep the structure exactly.)")
+    pieces = paragraphs(chunk) if tr.key and not tr.api_error else []
+    if len(pieces) > 1:  # a long section the model keeps breaking goes again a paragraph at a time
+        outs = [translate_md_chunk(tr, p) for p in pieces]
+        joined = "".join(p if o is None else o for p, o in zip(pieces, outs))
+        if None not in outs:
+            tr.store("md", chunk, joined)
+        return joined
     if tr.key:
         tr.failed += 1
         print(f"  [{tr.lang}] left English: {err}: {chunk.strip()[:70]!r}", file=sys.stderr)

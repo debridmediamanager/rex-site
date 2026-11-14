@@ -10,6 +10,10 @@ masked, blocks = T.protect_code(md)
 assert "zurg setup" not in masked and "⟦C0⟧" in masked
 assert T.restore_code(masked.replace("Run this", "Führe das aus"), blocks) == md.replace("Run this", "Führe das aus")
 
+# A section the model keeps breaking is retried a paragraph at a time, never cut inside a code block.
+sec = "\nOne `a`.\n\n```bash\nx\n\ny\n```\n\nTwo.\n"
+assert T.paragraphs(sec) == ["\nOne `a`.\n\n", "```bash\nx\n\ny\n```\n\n", "Two.\n"] and "".join(T.paragraphs(sec)) == sec
+
 # Sections split at headings outside code only.
 assert len(T.sections("## A\ntext\n```\n## not a heading\n```\n## B\nmore")) == 2
 
@@ -21,6 +25,10 @@ assert "code spans" in T.check(src, "Nutze zurg setup und [Doku](../setup.md).\n
 assert "link targets" in T.check(src, "Nutze `zurg setup` und [Doku](../einrichtung.md).\n\n| a | b |\n|---|---|\n\n+++ Linux")
 assert "table rows" in T.check(src, "Nutze `zurg setup` und [Doku](../setup.md).\n\n| a |\n|---|\n\n+++ Linux")
 assert T.check(src, "") == "empty reply"
+# A code span that wraps in the English may sit on one line in the translation (zurg's changelog).
+wrapped = "zurg logged `cannot truncate data\\magic.journal ... Access is\ndenied.` every time it tidied `__magic__`."
+assert T.check(wrapped, "zurg protokollierte `cannot truncate data\\magic.journal ... Access is denied.` jedes Mal bei `__magic__`.") is None
+assert "code spans" in T.check(wrapped, "zurg protokollierte `cannot truncate data\\magic.journal` jedes Mal bei `__magic__`.")
 
 # A reply in the wrong language is rejected, even with the right shape. Real cached replies: German on the
 # Chinese and Japanese pages, Spanish on Indonesian ones, English left as it was, "I don't see any text",
