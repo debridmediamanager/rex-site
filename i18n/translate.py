@@ -221,38 +221,55 @@ def shape(text):
     }
 
 
-# Words common in one of these languages and rare in the others. The model has answered a Chinese page in
-# German, a Japanese one in Spanish and a Russian one with "I don't see any text"; all of them kept the shape.
+# Words and letters common in one of these languages and rare in the others. The model has answered a Chinese
+# page in German, a Japanese one in Spanish, a Russian one with "I don't see any text", and slipped single
+# German lines and its own notes ("Wait, I should not wrap in a code fence") into translated sections.
 COMMON = {
-    "en": "the and with you your this that is are not for when from it can",
-    "de": "und nicht mit der die das ist auf dich wenn oder eine wird für auch",
-    "es": "el los las del con una está también puedes pero cuando",
-    "pt": "você não uma os está também seu sua dos ao em quando mas",
-    "fr": "les est pour avec une vous pas dans et sur ce qui",
-    "id": "dan yang untuk dengan tidak ini itu atau bisa kamu dari akan jika",
+    "en": ("the and with you your this that is are not for when from it can", ""),
+    "de": ("und nicht mit der die das ist auf dich wenn oder eine wird für auch werden eines sich wie dem", "ßäö"),
+    "es": ("el los las del con una está también puedes pero cuando", "ñ¿¡"),
+    "pt": ("você não uma os está também seu sua dos ao em quando mas", "ãõ"),
+    "fr": ("les est pour avec une vous pas dans et sur ce qui", "œèù"),
+    "id": ("dan yang untuk dengan tidak ini itu atau bisa kamu dari akan jika", ""),
 }
-COMMON = {l: re.compile(rf"\b({'|'.join(w.split())})\b", re.I) for l, w in COMMON.items()}
+COMMON = {l: (re.compile(rf"\b({'|'.join(w.split())})\b", re.I), re.compile(f"[{m}]", re.I) if m else None)
+          for l, (w, m) in COMMON.items()}
 SCRIPT = {"zh": re.compile(r"[\u4e00-\u9fff]"), "ja": re.compile(r"[\u3040-\u30ff]"),  # ja: kana, not only kanji
           "ar": re.compile(r"[\u0600-\u06ff]"), "ru": re.compile(r"[\u0400-\u04ff]")}
+LATIN_WORD = re.compile(r"[A-Za-zÀ-ÿ]+")
+
+
+def language_scores(t):
+    return {l: len(w.findall(t)) + (2 * len(m.findall(t)) if m else 0) for l, (w, m) in COMMON.items()}
 
 
 def wrong_language(out, lang):
     """Why `out` is not in `lang`, or None. Code, links, tags, URLs and what stays English (bold UI names,
-    quoted messages) don't count; short texts pass."""
-    t = re.sub(r"```.*?```|`[^`]*`|\]\([^)]*\)|<[^>]+>|https?://\S+|⟦C\d+⟧|\*\*[^*]*\*\*|\"[^\"\n]*\"", " ", out, flags=re.S)
+    quoted messages) don't count. The whole text is checked, then every line and table cell on its own."""
+    t = re.sub(r"```.*?```|`[^`]*`|\]\([^)]*\)|<[^>]+>|https?://\S+|⟦C\d+⟧|\*\*[^*]*\*\*|\"[^\"]{0,300}\"", " ", out, flags=re.S)
     if lang in SCRIPT:
         words = re.findall(r"[^\W\d_]+", SCRIPT[lang].sub(" ", t))  # words in any other script
         if len(words) >= 12 and len(SCRIPT[lang].findall(t)) < 0.15 * len(words):
             return f"not in {LANGS[lang][0]}"
-        return None
-    if len(re.findall(r"[^\W\d_A-Za-zÀ-ÿ]", t)) > 20:
+    elif len(re.findall(r"[^\W\d_A-Za-zÀ-ÿ]", t)) > 20:
         return f"not in {LANGS[lang][0]}"
-    if len(re.findall(r"[A-Za-zÀ-ÿ]+", t)) < 12:
-        return None
-    score = {l: len(p.findall(t)) for l, p in COMMON.items()}
-    other = max((l for l in score if l != lang), key=score.get)
-    if score[other] >= 4 and score[other] > 2 * score[lang]:
-        return f"reads as {other}, not {lang}"
+    elif len(LATIN_WORD.findall(t)) >= 12:
+        score = language_scores(t)
+        other = max((l for l in score if l != lang), key=score.get)
+        if score[other] >= 4 and score[other] > 2 * score[lang]:
+            return f"reads as {other}, not {lang}"
+    for piece in re.split(r"[\n|]", t):
+        words = LATIN_WORD.findall(piece)
+        if len(words) < 3 or (lang in SCRIPT and SCRIPT[lang].search(piece)):
+            continue
+        score = language_scores(piece)
+        own = score.get(lang, 0)
+        if len(words) >= 6 and score["en"] >= 3 and own == 0 and not piece.lstrip().startswith((">", "![")):
+            # a > line quotes a message; an English alt text is better than a whole section in English
+            return f"English line: {piece.strip()[:50]}"
+        for l, n in score.items():
+            if l not in ("en", lang) and n >= (2 if lang in SCRIPT else 3) and n > 2 * max(own, score["en"]):
+                return f"line reads as {l}: {piece.strip()[:50]}"
 
 
 def check(src, out, lang=None):

@@ -23,7 +23,8 @@ assert "table rows" in T.check(src, "Nutze `zurg setup` und [Doku](../setup.md).
 assert T.check(src, "") == "empty reply"
 
 # A reply in the wrong language is rejected, even with the right shape. Real cached replies: German on the
-# Chinese and Japanese pages, Spanish on Indonesian ones, English left as it was, "I don't see any text".
+# Chinese and Japanese pages, Spanish on Indonesian ones, English left as it was, "I don't see any text",
+# and single bad lines in good sections: German sentences, the model's own "Wait, that's not right".
 # Right ones pass, including English names, bold UI labels and quoted error messages.
 import json, tempfile
 cases = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures", "wrong_language.json"), encoding="utf-8"))
