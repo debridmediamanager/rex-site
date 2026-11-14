@@ -33,6 +33,8 @@ for c in cases:
 # Japanese on a Chinese page and Spanish on an Indonesian one (real pairs with their English source above);
 # an accented name the English already has is fine.
 assert T.check("Play Pokémon", "Mainkan Pokémon sekarang", "id") is None
+assert T.check("Watch in the Plex apps", "Ver en las apps de Plex", "id")  # a real zurg-site heading
+assert T.check("Watch in the Plex apps", "Tonton di aplikasi Plex", "id") is None
 # Short replies are told by script: zurg-site's Japanese page showed "Kostenlos" for "Free". Kept names pass.
 assert T.check("Free for everyone", "Kostenlos für alle", "ja") and T.check("Free", "Kostenlos", "zh")
 assert T.check("Plex Media Server", "Plex Media Server", "ja") is None and T.check("Free", "無料", "ja") is None

@@ -236,6 +236,8 @@ SCRIPT = {"zh": re.compile(r"[\u4e00-\u9fff]"), "ja": re.compile(r"[\u3040-\u30f
           "ar": re.compile(r"[\u0600-\u06ff]"), "ru": re.compile(r"[\u0400-\u04ff]")}
 LATIN_WORD = re.compile(r"[A-Za-zÀ-ÿ]+")
 KANA = SCRIPT["ja"]
+# short Spanish, French and Portuguese words Indonesian never uses ("para" is Indonesian too)
+ROMANCE = re.compile(r"\b(de|la|las|el|los|en|y|que|con|del|por|le|les|du|des|et|em|um|uma)\b", re.I)
 
 
 def language_scores(t):
@@ -257,8 +259,9 @@ def wrong_language(out, lang, src=None):
     if lang == "id" and src is not None:  # Indonesian has no accents: Spanish slipped in with few common words
         accented = {w.lower() for w in LATIN_WORD.findall(t) if re.search(r"[À-ÖØ-öø-ÿ]", w)}
         accented -= {w.lower() for w in LATIN_WORD.findall(src)}
-        if accented or re.search(r"[¿¡]", t):
-            return f"not in Indonesian: {' '.join(sorted(accented))[:40] or '¿ ¡'}"
+        romance = {w.lower() for w in ROMANCE.findall(t)} - {w.lower() for w in LATIN_WORD.findall(src)}
+        if accented or re.search(r"[¿¡]", t) or len(romance) >= 2:  # "Ver en las apps de Plex" for a heading
+            return f"not in Indonesian: {' '.join(sorted(accented | romance))[:40] or '¿ ¡'}"
     if lang in SCRIPT:
         words = re.findall(r"[^\W\d_]+", SCRIPT[lang].sub(" ", t))  # words in any other script
         if len(words) >= 12 and len(SCRIPT[lang].findall(t)) < 0.15 * len(words):
