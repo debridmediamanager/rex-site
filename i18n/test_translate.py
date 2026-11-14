@@ -14,6 +14,14 @@ assert T.restore_code(masked.replace("Run this", "Führe das aus"), blocks) == m
 sec = "\nOne `a`.\n\n```bash\nx\n\ny\n```\n\nTwo.\n"
 assert T.paragraphs(sec) == ["\nOne `a`.\n\n", "```bash\nx\n\ny\n```\n\n", "Two.\n"] and "".join(T.paragraphs(sec)) == sec
 
+# A link left as another page's English title takes that title's translation; image alt text is left alone.
+tr = T.Translator("ja"); tr.key = None
+tr.store("fm", "rex with your own app", "自分のアプリで rex を使う")
+tr.store("md", "\nSee [rex with your own app](any-source.md) and ![rex with your own app](a.png).\n",
+         "\n[rex with your own app](any-source.md) と ![rex with your own app](a.png) を参照。\n")
+page = T.md_page(tr, "# T\n\nSee [rex with your own app](any-source.md) and ![rex with your own app](a.png).\n")
+assert "[自分のアプリで rex を使う](any-source.md)" in page and "![rex with your own app](a.png)" in page, page
+
 # Sections split at headings outside code only.
 assert len(T.sections("## A\ntext\n```\n## not a heading\n```\n## B\nmore")) == 2
 

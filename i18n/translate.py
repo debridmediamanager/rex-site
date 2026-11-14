@@ -415,6 +415,16 @@ You get a JSON array of short texts (page titles, headings, menu labels). Reply 
 translations, same length and order. Keep any backticks, Markdown links and {{#id}} or [!badge] parts as they are."""
 
 
+def known_title(tr, text):
+    """A link the model left as another page's English title ("rex with your own app") gets that title's
+    translation, from the page titles and headings already translated."""
+    for kind in ("fm", "heading"):
+        hit = tr.cached(kind, text)
+        if hit and "{" not in hit:
+            return hit
+    return text
+
+
 def md_page(tr, text):
     fm, body = split_front_matter(text)
     if fm:
@@ -442,6 +452,7 @@ def md_page(tr, text):
             result.append(f"{m.group(1)} {title}" + ("" if title == m.group(2) or re.search(r"\{#[^}]*\}\s*$", title) else f" {{#{hid}}}"))
         text = src if out is None else out
         masked, blocks = protect_code(text)
+        masked = re.sub(r"(?<!!)\[([^\]\n]+)\]\(", lambda x: f"[{known_title(tr, x.group(1))}](", masked)
         masked = re.sub(r"(\]\()([^)\s]+)", lambda x: x.group(1) + family_link(x.group(2), tr.lang), masked)
         result.append(restore_code(masked, blocks))
     return (f"---\n{fm}---\n" if fm else "") + "\n".join(result)
