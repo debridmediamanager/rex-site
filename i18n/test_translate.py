@@ -22,6 +22,20 @@ assert "link targets" in T.check(src, "Nutze `zurg setup` und [Doku](../einricht
 assert "table rows" in T.check(src, "Nutze `zurg setup` und [Doku](../setup.md).\n\n| a |\n|---|\n\n+++ Linux")
 assert T.check(src, "") == "empty reply"
 
+# A reply in the wrong language is rejected, even with the right shape. Real cached replies: German on the
+# Chinese and Japanese pages, Spanish on Indonesian ones, English left as it was, "I don't see any text".
+# Right ones pass, including English names, bold UI labels and quoted error messages.
+import json, tempfile
+cases = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures", "wrong_language.json"), encoding="utf-8"))
+for c in cases:
+    assert bool(T.check(c["text"], c["text"], c["lang"])) == c["wrong"], (c["lang"], c["text"][:80])
+# and a wrong one already in the cache is dropped on load, so the next run asks again
+with tempfile.TemporaryDirectory() as d:
+    old_dir, T.CACHE_DIR = T.CACHE_DIR, d
+    json.dump({"a": cases[0]["text"], "b": "你好"}, open(os.path.join(d, cases[0]["lang"] + ".json"), "w", encoding="utf-8"))
+    assert list(T.Translator(cases[0]["lang"]).cache) == ["b"]
+    T.CACHE_DIR = old_dir
+
 # Translated headings keep Retype's English anchors (checked against a real build: 1,362 of 1,362).
 seen = {}
 assert [T.retype_slug(h, seen) for h in ["Use `zurg setup` now!", "A & B / C", "Dup", "Dup"]] == \

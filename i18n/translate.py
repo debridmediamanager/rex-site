@@ -52,7 +52,8 @@ GitHub, Discord, Reddit, Patreon, Tailscale, Caddy.
 Names of buttons, menus, fields, settings, log lines and error messages that the apps show stay in English \
 exactly as written, because the apps themselves are in English. Translate the sentence around them.
 Write the way a friendly, experienced user would explain it: plain, short sentences, informal where the \
-language usually is for software (German du, Spanish tú, Brazilian você). Do not add or drop information."""
+language usually is for software. Do not add or drop information.
+Write the whole translation in {lang}, never in any other language."""
 
 HTML_RULES = RULES + """
 
@@ -70,6 +71,8 @@ class Translator:
             self.cache = json.load(open(self.path, encoding="utf-8"))
         except FileNotFoundError:
             self.cache = {}
+        # a reply cached before the language check existed is asked for again
+        self.cache = {k: v for k, v in self.cache.items() if not wrong_language(v, lang)}
         self.used, self.failed, self.sent, self.api_error = set(), 0, 0, None
         self.key = os.environ.get("OPENROUTER_TRANSLATE_KEY")
 
@@ -218,9 +221,45 @@ def shape(text):
     }
 
 
-def check(src, out):
+# Words common in one of these languages and rare in the others. The model has answered a Chinese page in
+# German, a Japanese one in Spanish and a Russian one with "I don't see any text"; all of them kept the shape.
+COMMON = {
+    "en": "the and with you your this that is are not for when from it can",
+    "de": "und nicht mit der die das ist auf dich wenn oder eine wird für auch",
+    "es": "el los las del con una está también puedes pero cuando",
+    "pt": "você não uma os está também seu sua dos ao em quando mas",
+    "fr": "les est pour avec une vous pas dans et sur ce qui",
+    "id": "dan yang untuk dengan tidak ini itu atau bisa kamu dari akan jika",
+}
+COMMON = {l: re.compile(rf"\b({'|'.join(w.split())})\b", re.I) for l, w in COMMON.items()}
+SCRIPT = {"zh": re.compile(r"[\u4e00-\u9fff]"), "ja": re.compile(r"[\u3040-\u30ff]"),  # ja: kana, not only kanji
+          "ar": re.compile(r"[\u0600-\u06ff]"), "ru": re.compile(r"[\u0400-\u04ff]")}
+
+
+def wrong_language(out, lang):
+    """Why `out` is not in `lang`, or None. Code, links, tags, URLs and what stays English (bold UI names,
+    quoted messages) don't count; short texts pass."""
+    t = re.sub(r"```.*?```|`[^`]*`|\]\([^)]*\)|<[^>]+>|https?://\S+|⟦C\d+⟧|\*\*[^*]*\*\*|\"[^\"\n]*\"", " ", out, flags=re.S)
+    if lang in SCRIPT:
+        words = re.findall(r"[^\W\d_]+", SCRIPT[lang].sub(" ", t))  # words in any other script
+        if len(words) >= 12 and len(SCRIPT[lang].findall(t)) < 0.15 * len(words):
+            return f"not in {LANGS[lang][0]}"
+        return None
+    if len(re.findall(r"[^\W\d_A-Za-zÀ-ÿ]", t)) > 20:
+        return f"not in {LANGS[lang][0]}"
+    if len(re.findall(r"[A-Za-zÀ-ÿ]+", t)) < 12:
+        return None
+    score = {l: len(p.findall(t)) for l, p in COMMON.items()}
+    other = max((l for l in score if l != lang), key=score.get)
+    if score[other] >= 4 and score[other] > 2 * score[lang]:
+        return f"reads as {other}, not {lang}"
+
+
+def check(src, out, lang=None):
     if not out.strip():
         return "empty reply"
+    if lang and (bad := wrong_language(out, lang)):
+        return bad
     ratio = len(out) / max(1, len(src))
     if not 0.2 < ratio < 4:
         return f"length ratio {ratio:.2f}"
@@ -263,7 +302,7 @@ def translate_md_chunk(tr, chunk):
             out = unfence(tr.ask(system, user))
         except RuntimeError as e:
             err = str(e); break
-        err = check(masked, out)
+        err = check(masked, out, tr.lang)
         if not err:
             lead, trail = chunk[:len(chunk) - len(chunk.lstrip("\n"))], chunk[len(chunk.rstrip("\n")):]
             out = lead + restore_code(out.strip("\n"), blocks) + trail
@@ -299,7 +338,7 @@ def translate_batch(tr, kind, batch, rules):
             continue
         if isinstance(out, list) and len(out) == len(batch) and all(isinstance(x, str) for x in out):
             for s, t in zip(batch, out):
-                if kind != "html" or html_shape(s) == html_shape(t):
+                if (kind != "html" or html_shape(s) == html_shape(t)) and not wrong_language(t, tr.lang):
                     tr.store(kind, s, t)
             break
 
