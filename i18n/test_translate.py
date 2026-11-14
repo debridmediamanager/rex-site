@@ -26,16 +26,17 @@ assert T.check(src, "") == "empty reply"
 # Chinese and Japanese pages, Spanish on Indonesian ones, English left as it was, "I don't see any text",
 # and single bad lines in good sections: German sentences, the model's own "Wait, that's not right".
 # Right ones pass, including English names, bold UI labels and quoted error messages.
-import json, tempfile
+import json
 cases = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures", "wrong_language.json"), encoding="utf-8"))
 for c in cases:
     assert bool(T.check(c["text"], c["text"], c["lang"])) == c["wrong"], (c["lang"], c["text"][:80])
-# and a wrong one already in the cache is dropped on load, so the next run asks again
-with tempfile.TemporaryDirectory() as d:
-    old_dir, T.CACHE_DIR = T.CACHE_DIR, d
-    json.dump({"a": cases[0]["text"], "b": "你好"}, open(os.path.join(d, cases[0]["lang"] + ".json"), "w", encoding="utf-8"))
-    assert list(T.Translator(cases[0]["lang"]).cache) == ["b"]
-    T.CACHE_DIR = old_dir
+# Short replies are told by script: zurg-site's Japanese page showed "Kostenlos" for "Free". Kept names pass.
+assert T.check("Free for everyone", "Kostenlos für alle", "ja") and T.check("Free", "Kostenlos", "zh")
+assert T.check("Plex Media Server", "Plex Media Server", "ja") is None and T.check("Free", "無料", "ja") is None
+# and a wrong reply already in the cache counts as a miss, so the next run asks again
+tr = T.Translator("ja")
+tr.store("html", "Free", "Kostenlos"); tr.store("html", "Docs", "ドキュメント"); tr.store("md", cases[0]["text"], cases[0]["text"])
+assert tr.cached("html", "Free") is None and tr.cached("html", "Docs") == "ドキュメント" and tr.cached("md", cases[0]["text"]) is None
 
 # Translated headings keep Retype's English anchors (checked against a real build: 1,362 of 1,362).
 seen = {}

@@ -71,8 +71,6 @@ class Translator:
             self.cache = json.load(open(self.path, encoding="utf-8"))
         except FileNotFoundError:
             self.cache = {}
-        # a reply cached before the language check existed is asked for again
-        self.cache = {k: v for k, v in self.cache.items() if not wrong_language(v, lang)}
         self.used, self.failed, self.sent, self.api_error = set(), 0, 0, None
         self.key = os.environ.get("OPENROUTER_TRANSLATE_KEY")
 
@@ -81,7 +79,7 @@ class Translator:
 
     def cached(self, kind, text):
         k = self.key_of(kind, text)
-        if k in self.cache:
+        if k in self.cache and not wrong_language(self.cache[k], self.lang, text):  # else it is asked for again
             self.used.add(k)
             return self.cache[k]
 
@@ -243,10 +241,16 @@ def language_scores(t):
     return {l: len(w.findall(t)) + (2 * len(m.findall(t)) if m else 0) for l, (w, m) in COMMON.items()}
 
 
-def wrong_language(out, lang):
+def wrong_language(out, lang, src=None):
     """Why `out` is not in `lang`, or None. Code, links, tags, URLs and what stays English (bold UI names,
-    quoted messages) don't count. The whole text is checked, then every line and table cell on its own."""
+    quoted messages) don't count. The whole text is checked, then every line and table cell on its own.
+    With the English `src`, a reply with none of the target script may only hold words from `src`, the names
+    kept as they are: "Free" came back as "Kostenlos" on a Japanese page, too short to tell by its words."""
     t = re.sub(r"```.*?```|`[^`]*`|\]\([^)]*\)|<[^>]+>|https?://\S+|⟦C\d+⟧|\*\*[^*]*\*\*|\"[^\"]{0,300}\"", " ", out, flags=re.S)
+    if lang in SCRIPT and src is not None and not SCRIPT[lang].search(t):
+        new = {w.lower() for w in LATIN_WORD.findall(t)} - {w.lower() for w in LATIN_WORD.findall(src)}
+        if new:
+            return f"not in {LANGS[lang][0]}: {' '.join(sorted(new))[:40]}"
     if lang in SCRIPT:
         words = re.findall(r"[^\W\d_]+", SCRIPT[lang].sub(" ", t))  # words in any other script
         if len(words) >= 12 and len(SCRIPT[lang].findall(t)) < 0.15 * len(words):
@@ -275,7 +279,7 @@ def wrong_language(out, lang):
 def check(src, out, lang=None):
     if not out.strip():
         return "empty reply"
-    if lang and (bad := wrong_language(out, lang)):
+    if lang and (bad := wrong_language(out, lang, src)):
         return bad
     ratio = len(out) / max(1, len(src))
     if not 0.2 < ratio < 4:
@@ -355,7 +359,7 @@ def translate_batch(tr, kind, batch, rules):
             continue
         if isinstance(out, list) and len(out) == len(batch) and all(isinstance(x, str) for x in out):
             for s, t in zip(batch, out):
-                if (kind != "html" or html_shape(s) == html_shape(t)) and not wrong_language(t, tr.lang):
+                if (kind != "html" or html_shape(s) == html_shape(t)) and not wrong_language(t, tr.lang, s):
                     tr.store(kind, s, t)
             break
 
