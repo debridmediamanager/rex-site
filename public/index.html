@@ -80,6 +80,7 @@
     <a class="brand" href="/" aria-label="rex home" aria-current="page"><img src="/logo.svg" alt="" width="30" height="30"><span class="brand-word">rex</span></a>
     <nav class="nav-links" aria-label="Main navigation">
       <a href="#screens">Screens</a>
+      <a href="#android">Android</a>
       <a href="#speed">Speed</a>
       <a href="#access">Access</a>
       <a href="#setup">Setup</a>
@@ -178,11 +179,57 @@
     </div>
   </section>
 
+  <!-- ANDROID -->
+  <section id="android">
+    <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
+      <div class="sec-head-split">
+        <div class="sec-head">
+          <p class="sec-label">03 / Android</p>
+          <h2>No computer?<br>A phone or TV box will do.</h2>
+        </div>
+        <p class="note">rex for Android runs rex on a phone or tablet or TV box. Addons bring in what to watch and it starts with public domain films from the Internet Archive. It is free and has no ads. Real screens from the app and from the Plex apps playing from it.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(16px,2.4vw,28px)">
+        <figure class="shot-fig">
+          <img class="shot" src="android-setup.webp" width="720" height="1280" loading="lazy" alt="The first screen of rex for Android asking for a server name and a port">
+          <figcaption class="shot-cap"><b>Name it and start it.</b> Then sign in once with your Plex account.</figcaption>
+        </figure>
+        <figure class="shot-fig">
+          <img class="shot" src="android-film.webp" width="720" height="1280" loading="lazy" alt="A 1916 silent film from the Internet Archive on its page in the Plex app on a phone">
+          <figcaption class="shot-cap"><b>Open any Plex app.</b> Your phone is in the list of servers like any other.</figcaption>
+        </figure>
+        <figure class="shot-fig">
+          <img class="shot" src="android-playing.webp" width="720" height="1280" loading="lazy" alt="The same film playing in the Plex app on a phone">
+          <figcaption class="shot-cap"><b>Press play.</b> rex converts what a player cannot play with the device's own video encoder.</figcaption>
+        </figure>
+      </div>
+
+      <div class="g2">
+        <figure class="shot-fig">
+          <img class="shot" src="android-tv-signin.webp" width="1440" height="810" loading="lazy" alt="rex for Android on a TV showing a code to enter at plex.tv/link">
+          <figcaption class="shot-cap"><b>Made for the remote too.</b> On Android TV and Google TV and Fire TV you sign in with a code on your phone.</figcaption>
+        </figure>
+        <figure class="shot-fig">
+          <img class="shot" src="android-tv-playing.webp" width="1440" height="810" loading="lazy" alt="The Plex app on a TV playing a 1914 Chaplin short from rex on the same TV">
+          <figcaption class="shot-cap"><b>One box does both.</b> rex runs on the TV and the Plex app on it plays from it.</figcaption>
+        </figure>
+      </div>
+
+      <div class="plan-cta">
+        <a class="btn btn-primary" href="https://github.com/debridmediamanager/rex-android/releases/latest/download/rex-android-arm64-v8a.apk">Download rex for Android</a>
+        <a class="btn btn-ghost" href="https://notes.debridmediamanager.com/rex/android/">Read the guide</a>
+        <a class="btn btn-ghost" href="https://zurg.debridmediamanager.com/android.html">zurg+rex for sponsors</a>
+      </div>
+      <p class="note">The button gets the build for most phones and TV boxes. Older 32-bit boxes and Fire TV Sticks take <a href="https://github.com/debridmediamanager/rex-android/releases/latest/download/rex-android-armeabi-v7a.apk">this one</a>. Sponsors get zurg+rex which adds a debrid and Usenet library to the same server.</p>
+    </div>
+  </section>
+
   <!-- SPEED -->
   <section id="speed">
     <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
       <div class="sec-head">
-        <p class="sec-label">03 / Speed</p>
+        <p class="sec-label">04 / Speed</p>
         <h2>How it feels<br>on a real library.</h2>
       </div>
       <div class="glass" style="padding:clamp(28px,3vw,40px) clamp(24px,3vw,44px);display:flex;flex-direction:column;gap:28px">
@@ -213,7 +260,7 @@
   <section id="limits">
     <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,48px)">
       <div class="sec-head">
-        <p class="sec-label">04 / Limits</p>
+        <p class="sec-label">05 / Limits</p>
         <h2>The things it will not do.</h2>
         <p class="lede">Still deciding? Read <a href="https://notes.debridmediamanager.com/rex/faq/">the questions people ask</a> before they install.</p>
       </div>
@@ -250,7 +297,7 @@
   <section id="access">
     <div class="wrap" style="display:flex;flex-direction:column;gap:clamp(32px,4vw,44px)">
       <div class="sec-head" style="max-width:760px">
-        <p class="sec-label">05 / Access</p>
+        <p class="sec-label">06 / Access</p>
         <h2>Free for personal use.<br>Source available.</h2>
         <p class="lede">rex and its source code are public under the PolyForm Noncommercial license. Personal use is free and commercial use is not allowed. There is no paid tier or waiting period. Every build is public the day it is made.</p>
       </div>
@@ -288,7 +335,7 @@
   <section id="setup">
     <div class="wrap qs">
       <div style="display:flex;flex-direction:column;gap:16px">
-        <p class="sec-label">06 / Setup</p>
+        <p class="sec-label">07 / Setup</p>
         <h2 style="font-size:clamp(26px,3.4vw,40px)">Up and running.</h2>
         <ol class="steps">
           <li><span><a href="https://github.com/debridmediamanager/rex/releases">Download the newest build</a> for your machine and unpack it. Linux needs glibc 2.35 or newer. On Linux you can also run the <a href="https://notes.debridmediamanager.com/rex/any-source/#run-rex-in-docker">Docker image</a> instead.</span></li>
@@ -299,11 +346,7 @@
           <li><span>Coming from Plex? <a href="https://notes.debridmediamanager.com/rex/import-watched/">Bring your watch history</a> with what you watched and rated and where you stopped.</span></li>
         </ol>
         <p class="note">Each guide has every step. The ones for <a href="https://notes.debridmediamanager.com/rex/any-source/">your own app</a> and <a href="https://notes.debridmediamanager.com/rex/with-zurg/">zurg</a> also cover IPv6 and Tailscale and a VPS and the one for <a href="https://notes.debridmediamanager.com/rex/addons/">building an addon</a> builds on them. Use rex nightly 2026.10.25 or newer and 2026.11.08 or newer for IPv6. A zurg that feeds it needs zurg nightly 2026.10.27 or newer. A proxy on the rex machine must block <span class="mono">/rex/</span>.</p>
-        <p class="note">Only a phone or TV box? <a href="https://notes.debridmediamanager.com/rex/android/">rex for Android</a> runs rex and its addons on it with no computer. The button gets the build for most phones and TV boxes; older 32-bit boxes and Fire TV Sticks take <a href="https://github.com/debridmediamanager/rex-android/releases/latest/download/rex-android-armeabi-v7a.apk">this one</a>. For sponsors, <a href="https://zurg.debridmediamanager.com/android.html">zurg+rex</a>, a Plex server on your phone, also connects your debrid and Usenet library to rex.</p>
-        <div class="plan-cta">
-          <a class="btn btn-primary" href="https://github.com/debridmediamanager/rex-android/releases/latest/download/rex-android-arm64-v8a.apk">Download rex for Android</a>
-          <a class="btn btn-ghost" href="https://zurg.debridmediamanager.com/android.html">zurg+rex for sponsors</a>
-        </div>
+        <p class="note">Only a phone or TV box? <a href="#android">rex for Android</a> runs rex and its addons on it with no computer.</p>
         <p class="note">Apps can optionally <a href="https://notes.debridmediamanager.com/rex/direct-download/">download straight from a provider</a>. Read the <a href="#redirect-risks">provider risks in Limits</a> before changing the default proxy mode.</p>
         <p class="note">Stuck? Ask in the rex-support forum on <a href="https://discord.com/invite/7u4YjMThXP">Discord</a>. The <a href="https://notes.debridmediamanager.com/rex/faq/">rex questions</a> answer the common ones.</p>
         <p class="note">Deleting a title in your apps deletes it at its source too. Untick Allow media deletion in the server's advanced Library settings to stop that. rex never updates itself so download a newer build to update.</p>
